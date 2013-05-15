@@ -18,6 +18,12 @@ description.
 1) Smart logger. Create a plugin for a Felix Web Console. This plugin give a possibility view, download, filter any log
 file you want.
 
+//TODO: smart logger should ask a service fol log file by name and output it to browser
+//TODO: smart logger should have ability to archive a selected log file and send it to user
+//TODO: smart logger should have ability a output only line which contain a part of string
+//TODO: smart logger should have ability to select string with part of string and archive it and give it to user
+
+
 =====================
 BUILDING THIS PROJECT
 =====================

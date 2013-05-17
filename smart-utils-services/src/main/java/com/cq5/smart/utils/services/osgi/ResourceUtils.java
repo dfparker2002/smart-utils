@@ -12,6 +12,9 @@ public class ResourceUtils {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ResourceUtils.class);
 
+    private ResourceUtils() {
+    }
+
     public static String readTemplateFile(Class clazz, String templateFile) {
 
         InputStream templateStream = clazz.getResourceAsStream(templateFile);

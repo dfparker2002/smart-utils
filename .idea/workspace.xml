@@ -38,8 +38,8 @@
     <file path="/Activator.java" changelist="043b3746-2a32-4dec-8f34-f748f0489b5e" time="1368612756010" ignored="false" />
     <file path="/SmartLoggerPanel.java" changelist="043b3746-2a32-4dec-8f34-f748f0489b5e" time="1368612921514" ignored="false" />
     <file path="$PROJECT_DIR$/../digital-catalog/atlassian-ide-plugin.xml" changelist="043b3746-2a32-4dec-8f34-f748f0489b5e" time="1368715985352" ignored="false" />
-    <file path="/Dummy.txt" changelist="043b3746-2a32-4dec-8f34-f748f0489b5e" time="1369059774992" ignored="false" />
-    <file path="/README" changelist="043b3746-2a32-4dec-8f34-f748f0489b5e" time="1369060278628" ignored="false" />
+    <file path="/Dummy.txt" changelist="043b3746-2a32-4dec-8f34-f748f0489b5e" time="1369060291398" ignored="false" />
+    <file path="/README" changelist="043b3746-2a32-4dec-8f34-f748f0489b5e" time="1369060644547" ignored="false" />
     <file path="/bundle.properties" changelist="043b3746-2a32-4dec-8f34-f748f0489b5e" time="1368622288429" ignored="false" />
     <file path="$PROJECT_DIR$/../org.apache.felix.webconsole.plugins.memoryusage-1.0.4/src/main/java/org/apache/felix/webconsole/plugins/memoryusage/internal/Activator.java" changelist="043b3746-2a32-4dec-8f34-f748f0489b5e" time="1368610458897" ignored="false" />
     <file path="/*.regexp" changelist="043b3746-2a32-4dec-8f34-f748f0489b5e" time="1368611493020" ignored="false" />
@@ -189,7 +189,7 @@
       <file leaf-file-name="README" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="1" selection-start="649" selection-end="649" vertical-scroll-proportion="0.5352798">
+            <state line="19" column="79" selection-start="727" selection-end="727" vertical-scroll-proportion="0.50851583">
               <folding />
             </state>
           </provider>
@@ -1073,7 +1073,11 @@
       <created>1369059781263</created>
       <updated>1369059781263</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Change a read me file.">
+      <created>1369060295601</created>
+      <updated>1369060295601</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1149,7 +1153,7 @@
     <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implement a basic functionality. You can choose and view any log file from a standard directory." />
+    <option name="LAST_COMMIT_MESSAGE" value="Change a read me file." />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -1168,6 +1172,7 @@
     <MESSAGE value="Add todo list. Add basic template. Create a utils for resource retrieving. Add i18n properties." />
     <MESSAGE value="Change a template . Experiment with JS" />
     <MESSAGE value="Implement a basic functionality. You can choose and view any log file from a standard directory." />
+    <MESSAGE value="Change a read me file." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1307,7 +1312,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/README">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="1" selection-start="649" selection-end="649" vertical-scroll-proportion="0.5352798">
+        <state line="19" column="79" selection-start="727" selection-end="727" vertical-scroll-proportion="0.50851583">
           <folding />
         </state>
       </provider>

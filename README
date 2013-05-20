@@ -15,10 +15,9 @@ http://www.cqblueprints.com/xwiki/bin/view/Blue+Prints/The+CQ+Project+Maven+Arch
 This project should contain a set of tools for a Adobe CQ5.5. Any useful features should be listed there with a short
 description.
 
-1) Smart logger. Create a plugin for a Felix Web Console. This plugin give a possibility view, download, filter any log
-file you want.
+1) Smart logger. Create a plugin for a Felix Web Console. This plugin give a possibility view, download, filter any log file you want.
 
-You can choose and view any lof file from standard Sling log file location.
+Now you can choose and view any log file from standard Sling log file location.
 
 //TODO: smart logger should have ability to archive a selected log file and send it to user
 //TODO: smart logger should have ability a output only line which contain a part of string

@@ -1,5 +1,6 @@
 package com.cq5.smart.utils.services.osgi.common;
 
+import com.cq5.smart.utils.services.osgi.smartlogger.TailThread;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

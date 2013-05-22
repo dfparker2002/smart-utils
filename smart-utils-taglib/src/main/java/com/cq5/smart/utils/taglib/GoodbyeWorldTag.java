@@ -4,9 +4,8 @@ import com.cqblueprints.taglib.CqSimpleTagSupport;
 import com.squeakysand.jsp.tagext.annotations.JspTag;
 import com.squeakysand.jsp.tagext.annotations.JspTagAttribute;
 
-import java.io.IOException;
-
 import javax.servlet.jsp.JspException;
+import java.io.IOException;
 
 /**
  * Example JSP Custom Tag demonstrating three important concepts:
@@ -26,9 +25,9 @@ public class GoodbyeWorldTag extends CqSimpleTagSupport {
 
     @Override
     public void doTag() throws JspException, IOException {
-        SmartLogger service = getService(SmartLogger.class);
-        String message = service.getMessage(name);
-        getJspWriter().write(message);
+//        SmartLogger service = getService(SmartLogger.class);
+//        String message = service.getMessage(name);
+//        getJspWriter().write(message);
     }
 
     public String getName() {

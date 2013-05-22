@@ -1,4 +1,4 @@
-package com.cq5.smart.utils.services.osgi.common;
+package com.cq5.smart.utils.services.osgi.smartlogger;
 
 import org.slf4j.Logger;
 

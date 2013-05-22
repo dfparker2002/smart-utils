@@ -1,0 +1,47 @@
+/*TODO: make similar to general*/
+
+.log_list__title {
+    line-height: 1.5;
+    font-weight: bold;
+    font-size: 1.5em;
+    font-family: Helvetica, Verdana, sans-serif;
+}
+
+.log_list_wrapper {
+    border: 1px dotted;
+    width: 500px;
+}
+
+.log_list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.log_list__item {
+    font: 200 1.1em/1.5 Helvetica, Verdana, sans-serif;
+    border-bottom: 1px solid #ccc;
+}
+
+.log_list__item:last-child {
+    border: none;
+}
+
+.log_list__item_link {
+    text-decoration: none;
+    color: #000;
+    display: block;
+    margin-left: 8px;
+
+    -webkit-transition: font-size 0.3s ease, background-color 0.3s ease;
+    -moz-transition: font-size 0.3s ease, background-color 0.3s ease;
+    -o-transition: font-size 0.3s ease, background-color 0.3s ease;
+    -ms-transition: font-size 0.3s ease, background-color 0.3s ease;
+    transition: font-size 0.3s ease, background-color 0.3s ease;
+}
+
+
+.log_list__item_link:hover {
+    font-size: 1.3em;
+    background: #f6f6f6;
+}

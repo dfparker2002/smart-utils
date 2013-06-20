@@ -10,14 +10,27 @@
         function loadList(logList) {
 
             for(var i=0;i<logList.length; i++) {
-
-                var $link = $('<a>');
-                $link.attr('href', '/services/smart-utils/logger?file='+logList[i]);
-                $link.attr('target', '_blank');
-                $link.addClass('log_list__item_link');
-                $link.text(logList[i]);
-                $logList.append($('<li>').addClass('log_list__item').append($link));
+                //FIXME: keep in property, not in attribute
+                $logList.append($('<li></li>').addClass('log_list__item').attr('logname', logList[i]).html(logList[i]));
             }
+
+            $(".log_list__item").click(
+                function (e) {
+                    e.preventDefault();
+
+                    $('ul.log_item_menu').find('li:first').find('a').attr('href', '/services/smart-utils/logger?file='
+                        + $(this).attr('logname'));
+
+                    $('ul.log_item_menu').animate({
+                        'left': e.pageX-10,
+                        'top': e.pageY-10
+                    }).slideDown('fast');
+                }
+            );
+
+            $('ul.log_item_menu').mouseleave(function() {
+                $(this).slideUp('fast');
+            });
         }
 
         $.ajax({

@@ -24,6 +24,9 @@ Now you can choose and view any log file from standard Sling log file location.
 //TODO: smart logger should have ability to select string with part of string and archive it and give it to user
 
 
+2) tool for a save query result in file and output into browser
+//TODO: add console where i can use XPATH, SQL for a query in repository and get a result in browser
+
 =====================
 BUILDING THIS PROJECT
 =====================

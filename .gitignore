@@ -15,6 +15,7 @@ local.properties
 .classpath
 .settings/
 .loadpath
+*.bat
 
 # External tool builders
 .externalToolBuilders/
@@ -161,3 +162,9 @@ pip-log.txt
 
 # Mac crap
 .DS_Store
+
+#IDEA
+*.iml
+.idea
+target
+atlassian-ide-plugin.xml

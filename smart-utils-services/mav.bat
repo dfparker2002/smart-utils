@@ -1,1 +1,1 @@
-mvn clean package
+mvn -P auto-deploy clean package

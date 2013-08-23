@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<workspaceFilter version="1.0">
+    <filter root="/etc/smart-utils/tools"/>
+    <filter root="/etc/designs/smart-utils/jcr:content">
+        <include pattern="/etc/designs/smart-utils/jcr:content(/.*)+"/>
+    </filter>
+</workspaceFilter>

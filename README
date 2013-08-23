@@ -7,25 +7,36 @@ Andrii Manuiev (amanuev@gmail.com)
 ABOUT THIS PROJECT
 ==================
 
+This project should contain a set of tools for a Adobe CQ5.5. Any useful features should be listed there with a short
+description.
+
+
+1) Smart logger. Plugin for a Felix Web Console. This plugin give a possibility view any log file in browser in realtime.
+
+//TODO: smart logger should have ability to archive a selected log file and send it to user as ZIP
+//TODO: smart logger should have ability a output only line which contain a part of input string
+
+
+2) Tool for output query result into browser. Sometimes it is very useful to get report about nodes selected by query.
+Now it is a flat list of paths.
+
+//TODO: add template support. Each template should represent an output format of single node.
+
+For examle:  
+  Node {path} with name '{name}' has next property value: {some_propery};
+
+Expected result:
+  Node /content/mysite/en with name 'English' has next property value: 10056;
+  Node /content/mysite/fr with name 'French' has next property value: 7056;
+  ...
+
+
+
 This project was created from the com.cqblueprints.archetypes:multi-module Maven Archetype.
 
 More information on the generation process can be found here:
 http://www.cqblueprints.com/xwiki/bin/view/Blue+Prints/The+CQ+Project+Maven+Archetype
 
-This project should contain a set of tools for a Adobe CQ5.5. Any useful features should be listed there with a short
-description.
-
-1) Smart logger. Create a plugin for a Felix Web Console. This plugin give a possibility view, download, filter any log file you want.
-
-Now you can choose and view any log file from standard Sling log file location.
-
-//TODO: smart logger should have ability to archive a selected log file and send it to user
-//TODO: smart logger should have ability a output only line which contain a part of string
-//TODO: smart logger should have ability to select string with part of string and archive it and give it to user
-
-
-2) tool for a save query result in file and output into browser
-//TODO: add console where i can use XPATH, SQL for a query in repository and get a result in browser
 
 =====================
 BUILDING THIS PROJECT

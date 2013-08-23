@@ -25,27 +25,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="043b3746-2a32-4dec-8f34-f748f0489b5e" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/smart-utils-content/src/main/content/jcr_root/.content.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/smart-utils-content/src/main/content/jcr_root/apps/.content.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/smart-utils-content/src/main/content/jcr_root/apps/smart-utils/components/repository-query-reporter/.content.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/smart-utils-content/src/main/content/jcr_root/etc/.content.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/smart-utils-content/src/main/content/jcr_root/etc/designs/.content.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/smart-utils-content/src/main/content/jcr_root/etc/designs/smart-utils/.content.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/smart-utils-content/src/main/content/jcr_root/etc/smart-utils/.content.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/smart-utils-content/src/main/content/jcr_root/etc/smart-utils/tools/.content.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/smart-utils-content/src/main/content/jcr_root/etc/smart-utils/tools/repository-query-reporter/.content.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/smart-utils-services/src/main/java/com/cq5/smart/utils/services/osgi/components/RepositoryQueryReporter.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/smart-utils-content/src/main/content/META-INF/vault/config.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/smart-utils-content/src/main/content/META-INF/vault/filter.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/smart-utils-content/pom.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/smart-utils-content/src/main/content/jcr_root/apps/smart-utils/components/repository-query-reporter/repository-query-reporter.jsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/smart-utils-content/src/main/content/META-INF/vault/settings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/atlassian-ide-plugin.xml" afterPath="$PROJECT_DIR$/atlassian-ide-plugin.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smart-utils-services/mav.bat" afterPath="$PROJECT_DIR$/smart-utils-services/mav.bat" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smart-utils-services/pom.xml" afterPath="$PROJECT_DIR$/smart-utils-services/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smart-utils-services/smart-utils-services.iml" afterPath="$PROJECT_DIR$/smart-utils-services/smart-utils-services.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/smart-utils-taglib/smart-utils-taglib.iml" afterPath="$PROJECT_DIR$/smart-utils-taglib/smart-utils-taglib.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="parent.iws" />
@@ -58,7 +37,7 @@
     <file path="/Activator.java" changelist="043b3746-2a32-4dec-8f34-f748f0489b5e" time="1368612756010" ignored="false" />
     <file path="/SmartLoggerPanel.java" changelist="043b3746-2a32-4dec-8f34-f748f0489b5e" time="1368612921514" ignored="false" />
     <file path="$PROJECT_DIR$/../digital-catalog/atlassian-ide-plugin.xml" changelist="043b3746-2a32-4dec-8f34-f748f0489b5e" time="1368715985352" ignored="false" />
-    <file path="/Dummy.txt" changelist="043b3746-2a32-4dec-8f34-f748f0489b5e" time="1377265353802" ignored="false" />
+    <file path="/Dummy.txt" changelist="043b3746-2a32-4dec-8f34-f748f0489b5e" time="1377265549747" ignored="false" />
     <file path="/README" changelist="043b3746-2a32-4dec-8f34-f748f0489b5e" time="1369060644547" ignored="false" />
     <file path="/bundle.properties" changelist="043b3746-2a32-4dec-8f34-f748f0489b5e" time="1368622288429" ignored="false" />
     <file path="$PROJECT_DIR$/../org.apache.felix.webconsole.plugins.memoryusage-1.0.4/src/main/java/org/apache/felix/webconsole/plugins/memoryusage/internal/Activator.java" changelist="043b3746-2a32-4dec-8f34-f748f0489b5e" time="1368610458897" ignored="false" />
@@ -165,7 +144,7 @@
       <file leaf-file-name="README" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="79" selection-start="900" selection-end="900" vertical-scroll-proportion="0.04255319">
+            <state line="22" column="79" selection-start="900" selection-end="900" vertical-scroll-proportion="0.042718448">
               <folding />
             </state>
           </provider>
@@ -878,14 +857,18 @@
       <created>1369060295601</created>
       <updated>1369060295601</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Add a utility page which help to get a result by send query to repository. Now the result it is just a list of node paths in browser.&#10; It can help when you want to save a list of nodes for any reason.">
+      <created>1377265558481</created>
+      <updated>1377265558481</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1034" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.383592" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.38444445" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Atlassian " active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -895,18 +878,18 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3292683" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Notes" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32992464" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Regex Tester" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2289221" sideWeight="0.616408" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2289221" sideWeight="0.6155556" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32868758" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="IntelliJad Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.329849" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -954,7 +937,7 @@
     <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Change a read me file." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add a utility page which help to get a result by send query to repository. Now the result it is just a list of node paths in browser.&#10; It can help when you want to save a list of nodes for any reason." />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -974,6 +957,7 @@
     <MESSAGE value="Change a template . Experiment with JS" />
     <MESSAGE value="Implement a basic functionality. You can choose and view any log file from a standard directory." />
     <MESSAGE value="Change a read me file." />
+    <MESSAGE value="Add a utility page which help to get a result by send query to repository. Now the result it is just a list of node paths in browser.&#10; It can help when you want to save a list of nodes for any reason." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1105,7 +1089,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/README">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="79" selection-start="900" selection-end="900" vertical-scroll-proportion="0.04255319">
+        <state line="22" column="79" selection-start="900" selection-end="900" vertical-scroll-proportion="0.042718448">
           <folding />
         </state>
       </provider>

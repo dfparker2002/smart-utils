@@ -5,8 +5,15 @@
 </div>
 <br>
 <div class="log_list_wrapper">
-    <ul class="log_list">
-    </ul>
+
+    <form class="log_list_wrapper__from" action="/services/smart-utils/logger" method="GET">
+        <label for="filter_expression">Filter by:</label>&nbsp;<input id="filter_expression" name="filter" /><br><br>
+        <select class="log_list" name="file">
+        </select>
+        <button type="submit">Open log</button>
+    </form>
+
+    <br><br><br>
 
     <ul class="log_item_menu">
         <li><a href="#" target="_blank">open</a></li>

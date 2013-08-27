@@ -1,6 +1,10 @@
 package com.cq5.smart.utils.services.osgi.smartlogger;
 
 import com.cq5.smart.utils.services.osgi.common.FileWriterDecorator;
+import com.cq5.smart.utils.services.osgi.common.LogFilter;
+import com.cq5.smart.utils.services.osgi.common.impl.EmptyLogFilter;
+import com.cq5.smart.utils.services.osgi.common.impl.LogFilterImpl;
+import org.apache.commons.lang.StringUtils;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.sling.SlingServlet;
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -26,7 +30,9 @@ public class SmartLogsReader extends SlingAllMethodsServlet {
 
     private static final String CONTENT_TYPE = "text/plain";
     private static final String PAGE_ENCODING = "UTF-8";
+
     public static final String LOG_FILE_PARAM = "file";
+    public static final String LOG_FILTER_PARAM = "filter";
 
     @Reference
     private SlingSettingsService slingSettings;
@@ -38,12 +44,16 @@ public class SmartLogsReader extends SlingAllMethodsServlet {
 
         String requestedFile = request.getParameter(LOG_FILE_PARAM);
 
+        String requestedFilter = request.getParameter(LOG_FILTER_PARAM);
+
         FileWriterDecorator fileWriter = new FileWriterDecorator(response.getWriter());
 
         File logFile = new File(slingSettings.getAbsolutePathWithinSlingHome("logs").concat("/").concat(requestedFile));
 
+        LogFilter filter = StringUtils.isNotBlank(requestedFilter) ? new LogFilterImpl(requestedFilter) : new EmptyLogFilter();
+
         if (logFile.exists()) {
-            fileWriter.printFile(logFile);
+            fileWriter.printFile(logFile, filter);
         } else {
             fileWriter.print("Wrong path to file");
         }

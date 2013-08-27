@@ -26,6 +26,11 @@
     width: 500px;
     }
 
+    .log_list_wrapper__from {
+        margin: 25px;
+        width: 500px;
+    }
+
     .log_list {
         list-style-type: none;
         margin: 0;

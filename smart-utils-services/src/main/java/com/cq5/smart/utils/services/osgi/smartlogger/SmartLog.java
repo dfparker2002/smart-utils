@@ -2,6 +2,7 @@ package com.cq5.smart.utils.services.osgi.smartlogger;
 
 import com.day.cq.commons.TidyJSONWriter;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.sling.SlingServlet;
 import org.apache.sling.api.SlingHttpServletRequest;
@@ -62,12 +63,12 @@ public class SmartLog extends SlingAllMethodsServlet {
     private List<String> getFileList() {
         List<String> result = new LinkedList<String>();
 
-        File logsFolder = new File(slingSettings.getAbsolutePathWithinSlingHome("logs"));
-
-        final Collection<File> listOfLogs = FileUtils.listFiles(logsFolder, new String[]{"log"}, false);
+        String path = slingSettings.getAbsolutePathWithinSlingHome("logs");
+        File logsFolder = new File(path);
+        final Collection<File> listOfLogs = FileUtils.listFiles(logsFolder, new String[]{"log"}, true);
 
         for (File logFile : listOfLogs) {
-            result.add(String.format("%s", logFile.getName()));
+            result.add(String.format("%s", logFile.getAbsolutePath().replace(path + File.separator, StringUtils.EMPTY)));
         }
         return result;
     }

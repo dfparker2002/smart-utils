@@ -1,5 +1,7 @@
 package com.cq5.smart.utils.services.osgi.smartlogger;
 
+import com.cq5.smart.utils.services.osgi.common.LogFilter;
+import com.cq5.smart.utils.services.osgi.common.impl.LogFilterImpl;
 import org.slf4j.Logger;
 
 import java.io.*;
@@ -15,14 +17,16 @@ public class TailThread implements Runnable {
 
     private BufferedReader bufferedReader;
     private PrintWriter writer;
+    private LogFilter filter;
     boolean execute = true;
 
     private Logger logger;
 
-    public TailThread(File file, PrintWriter writer, Logger logger) throws FileNotFoundException {
+    public TailThread(File file, PrintWriter writer, Logger logger, LogFilter filter) throws FileNotFoundException {
         bufferedReader = new BufferedReader(new FileReader(file));
         this.writer = writer;
         this.logger = logger;
+        this.filter = filter;
     }
 
     @Override
@@ -31,7 +35,7 @@ public class TailThread implements Runnable {
             while (execute) {
                 String line = bufferedReader.readLine();
                 if (line != null) {
-                    writer.println(line);
+                    filter.apply(writer, line);
                     writer.flush();
                 } else {
                     try {

@@ -51,7 +51,7 @@ public class SmartLogView extends SimpleWebConsolePlugin {
 
         //TODO: FIX IT - use bundle.properties instead (not load now)
         DefaultVariableResolver vars = ((DefaultVariableResolver) WebConsoleUtil.getVariableResolver(request));
-        vars.put("smart.logger.list.title", "Select a file");
+        vars.put("smart.logger.list.title", "Select a log file");
 
         response.getWriter().print(template);
     }

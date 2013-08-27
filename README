@@ -25,7 +25,7 @@ Now it is a flat list of paths.
 
 //TODO: add template support. Each template should represent an output format of single node.
 
-For examle:  
+For example:
   Node {path} with name '{name}' has next property value: {some_propery};
 
 Expected result:

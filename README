@@ -13,12 +13,12 @@ description.
 1) Smart logger. Create a plugin for a Felix Web Console. This plugin give a possibility view, download, filterExpression any log file you want.
 
 Now you can choose and view any log file from standard Sling log file location.
-27.08.2013: Add ability to filter output log stream by substring.
 
+Changelog:
+27.08.2013: add ability to filter output log stream by substring.
+02.09.2013: add ability to download log as ZIP file
 
-//TODO: smart logger should have ability to archive a selected log file and send it to user
 //TODO: smart logger should have ability to select string with part of string and archive it and give it to user
-
 
 2) Tool for output query result into browser. Sometimes it is very useful to get report about nodes selected by query.
 Now it is a flat list of paths.
@@ -34,7 +34,7 @@ Expected result:
   ...
 
 
-
+Additional information:
 This project was created from the com.cqblueprints.archetypes:multi-module Maven Archetype.
 
 More information on the generation process can be found here:

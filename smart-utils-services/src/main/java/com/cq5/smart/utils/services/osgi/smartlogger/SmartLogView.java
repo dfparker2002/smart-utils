@@ -24,16 +24,19 @@ import java.util.Hashtable;
  */
 public class SmartLogView extends SimpleWebConsolePlugin {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(SmartLogView.class);
+
     private static final String LABEL = "smartlogger";
     private static final String TITLE = "Smart logger";
     private static final String CSS[] = {"/" + LABEL + "/templates/smart-utils/css/smart-logger.css"};
-    private static final Logger LOGGER = LoggerFactory.getLogger(SmartLogView.class);
-    private static final String LOG_PARAM = "log";
+
+    public static final String TEMPLATE_PATH = "/templates/smart-utils/smart-logger.html";
+
     private final String template;
 
     public SmartLogView() {
         super(LABEL, TITLE, CSS);
-        template = readTemplateFile("/templates/smart-utils/smart-logger.html");
+        template = readTemplateFile(TEMPLATE_PATH);
     }
 
     public static Dictionary getParams() {
@@ -48,11 +51,9 @@ public class SmartLogView extends SimpleWebConsolePlugin {
 
     @Override
     protected void renderContent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        //TODO: FIX IT - use bundle.properties instead (not load now)
+        //TODO: FIX IT - use bundle.properties instead (not load now for unknown reason)
         DefaultVariableResolver vars = ((DefaultVariableResolver) WebConsoleUtil.getVariableResolver(request));
         vars.put("smart.logger.list.title", "Select a log file");
-
         response.getWriter().print(template);
     }
 }

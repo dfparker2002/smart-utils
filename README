@@ -17,10 +17,9 @@ Now you can choose and view any log file from standard Sling log file location.
 Changelog:
 27.08.2013: add ability to filter output log stream by substring.
 02.09.2013: add ability to download log as ZIP file
+04.09.2013: add ability to filter log by substring and download it as ZIP
 
-//TODO: smart logger should have ability to select string with part of string and archive it and give it to user
-
-2) Tool for output query result into browser. Sometimes it is very useful to get report about nodes selected by query.
+1) Tool for output query result into browser. Sometimes it is very useful to get report about nodes selected by query.
 Now it is a flat list of paths.
 
 //TODO: add template support. Each template should represent an output format of single node.

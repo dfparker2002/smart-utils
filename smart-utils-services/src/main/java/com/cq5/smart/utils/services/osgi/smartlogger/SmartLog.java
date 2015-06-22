@@ -21,10 +21,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
  * User: Andrii_Manuiev
  * Date: 22.05.13
- * Time: 15:40
  * Provide information about log files for plugin.
  */
 @SlingServlet(metatype = false, paths = "/services/smart-utils/smartlogs")

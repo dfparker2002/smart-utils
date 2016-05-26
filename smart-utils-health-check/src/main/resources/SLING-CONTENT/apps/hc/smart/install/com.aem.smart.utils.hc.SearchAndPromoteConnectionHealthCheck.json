@@ -1,0 +1,7 @@
+{
+  "jcr:primaryType" : "sling:OsgiConfig",
+  "hc.name" : "Search And Promote Connection Health Check",
+  "hc.tags" : [snp,connection],
+  "hc.mbean.name" : "SearchAndPromoteConnectionHC",
+  "hc.async.cronExpression" : ""
+}

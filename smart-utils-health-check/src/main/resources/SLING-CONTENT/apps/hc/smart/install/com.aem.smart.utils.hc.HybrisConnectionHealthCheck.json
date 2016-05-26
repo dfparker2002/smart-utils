@@ -1,0 +1,6 @@
+{
+  "jcr:primaryType" : "sling:OsgiConfig",
+  "hc.name" : "Hybris Connection Health Check",
+  "hc.tags" : [hybris,connection],
+  "hc.mbean.name" : "HybrisConnectionHC"
+}

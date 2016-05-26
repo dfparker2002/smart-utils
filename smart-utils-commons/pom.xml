@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
@@ -11,29 +10,42 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>smart-utils-services</artifactId>
+
+    <artifactId>smart-utils-commons</artifactId>
     <packaging>bundle</packaging>
 
     <name>${project.groupId} - ${project.artifactId}</name>
 
     <description>
-        An OSGi Bundle containing all of the backend CQ service implementations for the 'CQ Smart Utils' project.
-
-        During development, this bundle can be automatically deployed to your CQ instance by activating the
-        "auto-deploy" profile and running the Maven "install" lifecycle phase (e.g. "mvn -Pauto-deploy install"). This
-        can also be done from within most IDEs like Eclipse.
+        This is stand alone bundle which is includes all sportchek utils working with JCR API.
+        This bundle can be installed with 'auto-deploy' profile only or manually.
     </description>
 
     <dependencies>
 
         <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>com.day.commons.osgi.wrapper</groupId>
-            <artifactId>com.day.commons.osgi.wrapper.commons-lang2</artifactId>
+            <groupId>javax.jcr</groupId>
+            <artifactId>jcr</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.jackrabbit</groupId>
+            <artifactId>jackrabbit-jcr-commons</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.sling</groupId>
+            <artifactId>org.apache.sling.jcr.api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.sling</groupId>
+            <artifactId>org.apache.sling.api</artifactId>
         </dependency>
 
         <dependency>
@@ -42,67 +54,56 @@
         </dependency>
 
         <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpcore-nio</artifactId>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.apache.felix</groupId>
-            <artifactId>org.apache.felix.scr.annotations</artifactId>
+            <groupId>com.day.commons.osgi.wrapper</groupId>
+            <artifactId>com.day.commons.osgi.wrapper.joda-time</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.osgi</groupId>
-            <artifactId>org.osgi.core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.sling</groupId>
-            <artifactId>org.apache.sling.api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.felix</groupId>
-            <artifactId>org.apache.felix.http.api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.felix</groupId>
-            <artifactId>org.apache.felix.webconsole</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.sling</groupId>
-            <artifactId>org.apache.sling.settings</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>org.apache.sling</groupId>
             <artifactId>org.apache.sling.commons.json</artifactId>
         </dependency>
+
         <dependency>
             <groupId>com.day.cq</groupId>
             <artifactId>cq-commons</artifactId>
-            <scope>provided</scope>
         </dependency>
+
+        <!--Unit tests -->
         <dependency>
-            <groupId>javax.jcr</groupId>
-            <artifactId>jcr</artifactId>
-            <scope>provided</scope>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
         </dependency>
+
         <dependency>
-            <groupId>com.day.cq</groupId>
-            <artifactId>cq-search</artifactId>
-            <scope>provided</scope>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
         </dependency>
+
         <dependency>
-            <groupId>org.apache.jackrabbit</groupId>
-            <artifactId>jackrabbit-jcr-commons</artifactId>
-            <scope>provided</scope>
+            <groupId>com.jayway.jsonpath</groupId>
+            <artifactId>json-path-assert</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.apache.sling</groupId>
-            <artifactId>org.apache.sling.jcr.api</artifactId>
-            <scope>provided</scope>
+            <artifactId>org.apache.sling.commons.testing</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.sling</groupId>
+            <artifactId>org.apache.sling.testing.sling-mock</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -113,14 +114,22 @@
                 <extensions>true</extensions>
                 <configuration>
                     <instructions>
-                        <Bundle-Activator>com.aem.smart.utils.services.osgi.SmartServiceActivator</Bundle-Activator>
-                        <Include-Resource>{maven-resources}</Include-Resource>
+                        <Import-Bundle>
+                            *
+                        </Import-Bundle>
+                        <Import-Package>
+                            !org.apache.log,
+                            *;resolution:=optional
+                        </Import-Package>
+                        <Embed-Transitive>false</Embed-Transitive>
+                        <Export-Package>
+                            com.aem.smart.utils.commons.api.*;
+                            com.aem.smart.utils.commons.date.*;
+                            com.aem.smart.utils.commons.jcr.*;
+                            com.aem.smart.utils.commons.json.*;
+                        </Export-Package>
                     </instructions>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-scr-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
@@ -130,9 +139,7 @@
             <id>auto-deploy</id>
             <build>
                 <plugins>
-                    <!--
-                        Use the sling plugin to automatically deploy the bundle to the JCR tree
-                    -->
+                    <!-- Use the sling plugin to automatically deploy the bundle to the JCR tree -->
                     <plugin>
                         <groupId>org.apache.sling</groupId>
                         <artifactId>maven-sling-plugin</artifactId>
@@ -144,12 +151,16 @@
                                 </goals>
                                 <configuration>
                                     <slingUrl>http://${cq.host}:${cq.port}</slingUrl>
-                                    <!-- 
-                                        IMPORTANT: due to an issue with the 2.1.0 version of the maven-sling-plugin, the path specified by the slingUrlSuffix
-                                        parameter below will not be created automatically and so must already exist in your CQ instance BEFORE trying to use the
-                                        auto-deploy profile. See this link for further information:
-                                        http://mail-archives.apache.org/mod_mbox/sling-users/201204.mbox/%3CBD6ED82C-3223-41C2-BF15-C987D7AAFCE3@craigsdickson.com%3E
-                                    -->
+                                    <!-- IMPORTANT: due to an issue with
+                                        the 2.1.0 version of the maven-sling-plugin,
+                                        the path specified by the slingUrlSuffix
+                                        parameter below will not be created
+                                        automatically and so must already
+                                        exist in your CQ instance BEFORE
+                                        trying
+                                        to use the auto-deploy profile. See
+                                        this link for further information:
+                                        http://mail-archives.apache.org/mod_mbox/sling-users/201204.mbox/%3CBD6ED82C-3223-41C2-BF15-C987D7AAFCE3@craigsdickson.com%3E -->
                                     <slingUrlSuffix>/apps/smart-utils/install</slingUrlSuffix>
                                     <user>${cq.user}</user>
                                     <password>${cq.password}</password>

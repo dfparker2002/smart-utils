@@ -25,7 +25,7 @@ import java.util.Objects;
 /**
  * Loads current OSGi service configs.
  */
-@Component(immediate = true, label = "FGL - Actual configurations loader")
+@Component(immediate = true, label = "Actual configurations loader")
 @Service(ActualConfigurationsLoader.class)
 public class ActualConfigurationsLoader implements ConfigurationLoader {
 
@@ -40,20 +40,21 @@ public class ActualConfigurationsLoader implements ConfigurationLoader {
     }
 
     @Override
-    public Multimap<String, FglConfiguration> loadConfigurations(FormattingResultLog resultLog) {
+    public Multimap<String, SiteConfiguration> loadConfigurations(String siteName, FormattingResultLog resultLog) {
         throw new UnsupportedOperationException("This method is not supported by this implementation!");
     }
 
     @Override
-    public Multimap<String, FglConfiguration> loadConfigurations(Collection<String> servicePids,
-            FormattingResultLog resultLog) {
+    public Multimap<String, SiteConfiguration> loadConfigurations(String siteName,
+                                                                  Collection<String> servicePids,
+                                                                  FormattingResultLog resultLog) {
 
         Configuration[] configurations = loadConfigurationsInner();
-        Multimap<String, FglConfiguration> actualConfigurationsMap = ArrayListMultimap.create();
+        Multimap<String, SiteConfiguration> actualConfigurationsMap = ArrayListMultimap.create();
         for (String servicePid : servicePids) {
-            Collection<FglConfiguration> fglConfigurations =
+            Collection<SiteConfiguration> siteConfigurations =
                     loadActualConfigurationsForService(configurations, servicePid, resultLog);
-            actualConfigurationsMap.putAll(servicePid, fglConfigurations);
+            actualConfigurationsMap.putAll(servicePid, siteConfigurations);
         }
         return actualConfigurationsMap;
     }
@@ -69,10 +70,10 @@ public class ActualConfigurationsLoader implements ConfigurationLoader {
         return result;
     }
 
-    private Collection<FglConfiguration> loadActualConfigurationsForService(Configuration[] configurations,
-            String servicePid, FormattingResultLog resultLog) {
+    private Collection<SiteConfiguration> loadActualConfigurationsForService(Configuration[] configurations,
+                                                                             String servicePid, FormattingResultLog resultLog) {
 
-        Collection<FglConfiguration> fglConfigurations = new ArrayList<>();
+        Collection<SiteConfiguration> siteConfigurations = new ArrayList<>();
         try {
             Collection<Configuration> filteredConfigurations = findConfigurations(configurations, servicePid);
 
@@ -87,21 +88,21 @@ public class ActualConfigurationsLoader implements ConfigurationLoader {
                     continue;
                 }
 
-                FglConfiguration fglConfiguration = new FglConfiguration(servicePid);
+                SiteConfiguration siteConfiguration = new SiteConfiguration(servicePid);
                 Enumeration keysEnumeration = properties.keys();
                 while (keysEnumeration.hasMoreElements()) {
                     String key = String.valueOf(keysEnumeration.nextElement());
-                    fglConfiguration.storeProperty(key, properties.get(key));
+                    siteConfiguration.storeProperty(key, properties.get(key));
                 }
-                fglConfigurations.add(fglConfiguration);
+                siteConfigurations.add(siteConfiguration);
             }
 
         } catch (Exception ex) {
-            LOGGER.error("Failed to check " + servicePid + " configurations: ", ex);
-            resultLog.warn("Failed to check {} configurations: '{}'", servicePid, ex);
+            LOGGER.error("Failed to check '{}' configurations: ", servicePid, ex);
+            resultLog.warn("Failed to check '{}' configurations: [{}]", servicePid, ex);
         }
 
-        return fglConfigurations;
+        return siteConfigurations;
     }
 
     private Collection<Configuration> findConfigurations(Configuration[] configurations, String pid) {

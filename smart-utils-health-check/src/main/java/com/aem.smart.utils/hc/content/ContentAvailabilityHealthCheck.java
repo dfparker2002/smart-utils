@@ -1,6 +1,7 @@
 package com.aem.smart.utils.hc.content;
 
 import com.aem.smart.utils.hc.AbstractRunmodeAwareHealthCheck;
+import com.google.common.collect.Iterators;
 import org.apache.felix.scr.annotations.Property;
 import org.apache.felix.scr.annotations.PropertyUnbounded;
 import org.apache.felix.scr.annotations.Reference;
@@ -20,8 +21,8 @@ import java.util.Map;
  */
 @SlingHealthCheck(
         name = "Content Availability Health Check",
-        label = "Atmosphere Content Availability Health Check",
-        description = "Checks the Atmosphere content availability.",
+        label = "Content Availability Health Check",
+        description = "Checks the content availability.",
         tags = { "content", "availability" }
 )
 public class ContentAvailabilityHealthCheck extends AbstractRunmodeAwareHealthCheck {
@@ -47,7 +48,7 @@ public class ContentAvailabilityHealthCheck extends AbstractRunmodeAwareHealthCh
     }
 
     @Override
-    protected void execute(FormattingResultLog resultLog) {
+    protected void execute(String siteName, FormattingResultLog resultLog) {
 
         ResourceResolver resolver = null;
         int checked = 0;
@@ -64,7 +65,7 @@ public class ContentAvailabilityHealthCheck extends AbstractRunmodeAwareHealthCh
                     failed++;
                     resultLog.warn("Path '{}' seems to be invalid or does not exist", p);
                 } else {
-                    resultLog.debug("Path '{}' exists, children count is '{}'", p, calculateChildrenCount(resource));
+                    resultLog.debug("Path '{}' exists, children count is '{}'", p, Iterators.size(resource.getChildren().iterator()));
                 }
                 checked++;
             }
@@ -82,16 +83,5 @@ public class ContentAvailabilityHealthCheck extends AbstractRunmodeAwareHealthCh
         } else {
             resultLog.debug("{} paths checked, {} failures", checked, failed);
         }
-
-    }
-
-    private int calculateChildrenCount(final Resource resource) {
-        int childrenCount = 0;
-        Iterator<Resource> childrenIt = resource.listChildren();
-        while (childrenIt.hasNext()) {
-            Resource child = childrenIt.next();
-            childrenCount++;
-        }
-        return childrenCount;
     }
 }

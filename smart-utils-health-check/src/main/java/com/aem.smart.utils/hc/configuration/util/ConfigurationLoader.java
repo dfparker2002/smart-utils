@@ -15,7 +15,7 @@ public interface ConfigurationLoader {
      * @param resultLog health check log
      * @return multimap of configurations.
      */
-    Multimap<String, FglConfiguration> loadConfigurations(FormattingResultLog resultLog);
+    Multimap<String, SiteConfiguration> loadConfigurations(String siteName, FormattingResultLog resultLog);
 
     /**
      * Loads configurations as multimap for provided configuration names (service pids).
@@ -23,5 +23,5 @@ public interface ConfigurationLoader {
      * @param resultLog health check log
      * @return multimap of configurations.
      */
-    Multimap<String, FglConfiguration> loadConfigurations(Collection<String> servicePids, FormattingResultLog resultLog);
+    Multimap<String, SiteConfiguration> loadConfigurations(String siteName, Collection<String> servicePids, FormattingResultLog resultLog);
 }

@@ -26,6 +26,13 @@ import java.util.Set;
                 name = RunmodeAwareHealthCheck.ENABLED_ON_RUNMODES_PROPERTY,
                 cardinality = Integer.MAX_VALUE,
                 label = "Runmodes to run this healthchek on"
+        ),
+        @Property(
+                name = RunmodeAwareHealthCheck.SITE_NAMES,
+                cardinality = Integer.MAX_VALUE,
+                label = "Site names",
+                description = "Set sitename folder where runmodes could be found, e.g. /apps/sitename/runmodes."
+
         )
 })
 public abstract class AbstractRunmodeAwareHealthCheck implements RunmodeAwareHealthCheck {
@@ -39,6 +46,7 @@ public abstract class AbstractRunmodeAwareHealthCheck implements RunmodeAwareHea
 
     private Set<String> enabledOnRunmodes;
     private Set<String> currentRunModes;
+    private Set<String> siteNames;
     private boolean enabled;
 
     @Activate
@@ -49,6 +57,9 @@ public abstract class AbstractRunmodeAwareHealthCheck implements RunmodeAwareHea
                 properties.get(ENABLED_ON_RUNMODES_PROPERTY),
                 DEFAULT_ENABLED_ON_RUNMODES
         ));
+
+        this.siteNames = Sets.newHashSet(PropertiesUtil.toStringArray(
+                properties.get(SITE_NAMES)));
 
         this.currentRunModes = Sets.newHashSet(slingSettingsService.getRunModes());
         for (String runmode : enabledOnRunmodes) {
@@ -68,7 +79,9 @@ public abstract class AbstractRunmodeAwareHealthCheck implements RunmodeAwareHea
         final FormattingResultLog resultLog = new FormattingResultLog();
         resultLog.info(getEnabledMessage());
         if (enabled) {
-            execute(resultLog);
+            for (String siteName : siteNames) {
+                execute(siteName, resultLog);
+            }
         }
         return new Result(resultLog);
     }
@@ -78,7 +91,7 @@ public abstract class AbstractRunmodeAwareHealthCheck implements RunmodeAwareHea
         return Sets.newHashSet(enabledOnRunmodes);
     }
 
-    protected abstract void execute(FormattingResultLog resultLog);
+    protected abstract void execute(String siteName, FormattingResultLog resultLog);
 
     protected final Logger getLogger() {
         return logger;

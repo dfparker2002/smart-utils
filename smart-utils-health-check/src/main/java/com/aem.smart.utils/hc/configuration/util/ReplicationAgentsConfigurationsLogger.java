@@ -48,7 +48,6 @@ public class ReplicationAgentsConfigurationsLogger {
                     continue;
                 }
 
-                // TODO: ATMO: optimize properly
                 for (String resourceTypeToSearch : getResourceTypesToSearch()) {
                     final SlingQuery query = SlingQuery.$(resource).find(resourceTypeToSearch);
                     for (Resource pathResource : query) {

@@ -5,20 +5,20 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 
+import com.aem.smart.utils.hc.api.WebsiteConfiguration;
 import org.apache.felix.scr.annotations.Properties;
 import org.apache.felix.scr.annotations.Property;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.sling.commons.osgi.PropertiesUtil;
 import org.apache.sling.hc.annotations.SlingHealthCheck;
 
-import com.aem.smart.utils.commons.api.WebsiteConfiguration;
 import com.aem.smart.utils.hc.RunmodeAwareHealthCheck;
 
 /**
  *
  */
 @SlingHealthCheck(name = "Catalog Blueprint Health Check (with SlingQuery)", label = "Catalog Blueprint Health Check (with SlingQuery)", description = "Checks presence of catalog blueprint (with SlingQuery)", tags = {
-        "atmosphere", "consistency" })
+        "consistency" })
 @Properties({ @Property(name = RunmodeAwareHealthCheck.ENABLED_ON_RUNMODES_PROPERTY, value = {
         RunmodeAwareHealthCheck.RUNMODE_AUTHOR }, cardinality = Integer.MAX_VALUE, label = "Runmodes to run this healthchek on") })
 public class CatalogBlueprintConsistencySlingQueryHealthCheck extends AbstractContentConsistencyHealthCheck {

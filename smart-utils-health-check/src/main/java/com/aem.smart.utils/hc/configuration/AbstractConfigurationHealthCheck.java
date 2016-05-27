@@ -49,7 +49,7 @@ abstract class AbstractConfigurationHealthCheck extends AbstractRunmodeAwareHeal
         Objects.requireNonNull(configurationAdmin, "No reference to ConfigurationAdmin");
     }
 
-    protected void execute(FormattingResultLog resultLog) {
+    protected void execute(String siteName, FormattingResultLog resultLog) {
 
         try {
             Configuration configuration = configurationAdmin.getConfiguration(getServicePid());

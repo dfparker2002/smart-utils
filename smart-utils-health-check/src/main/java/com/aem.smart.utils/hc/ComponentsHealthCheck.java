@@ -29,7 +29,7 @@ public class ComponentsHealthCheck extends AbstractRunmodeAwareHealthCheck {
 
     @Property(
             cardinality = Integer.MAX_VALUE,
-            value = {"com.fglsports", "Sport Chek"},
+            value = {},
             label = "Part of service.pid to filter components"
     )
     private static final String SERVICE_PID_PARTS_PROPERTY = "filter.criteria";
@@ -49,7 +49,7 @@ public class ComponentsHealthCheck extends AbstractRunmodeAwareHealthCheck {
     }
 
     @Override
-    protected void execute(final FormattingResultLog resultLog) {
+    protected void execute(String siteName, FormattingResultLog resultLog) {
 
         Component[] components = scrService.getComponents();
 

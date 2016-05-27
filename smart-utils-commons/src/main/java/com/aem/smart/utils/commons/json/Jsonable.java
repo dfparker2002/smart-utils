@@ -9,7 +9,10 @@ import org.apache.sling.commons.json.JSONObject;
 public interface Jsonable {
     /**
      * Gets JSON representation of this object.
+     *
      * @return JSON representation of this instance
+     *
+     * @throws JSONException the json exception
      */
     JSONObject toJson() throws JSONException;
 }

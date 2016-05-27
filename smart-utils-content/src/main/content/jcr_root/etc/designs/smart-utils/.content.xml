@@ -6,7 +6,7 @@
         cq:lastModifiedBy="admin"
         cq:template="/libs/wcm/core/templates/designpage"
         jcr:primaryType="cq:PageContent"
-        jcr:title="CQ Smart Utils Design"
+        jcr:title="Smart Utils Design"
         sling:resourceType="wcm/core/components/designer">
     </jcr:content>
     <favicon.ico/>

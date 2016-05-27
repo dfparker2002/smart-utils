@@ -1,6 +1,6 @@
 package com.aem.smart.utils.hc;
 
-import com.aem.smart.utils.commons.api.SearchAndPromoteConfiguration;
+import com.aem.smart.utils.hc.api.SearchAndPromoteConfiguration;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.sling.hc.annotations.SlingHealthCheck;
 

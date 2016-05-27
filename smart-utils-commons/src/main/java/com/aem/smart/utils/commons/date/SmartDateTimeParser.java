@@ -18,11 +18,11 @@ import com.google.common.collect.ImmutableSet;
 /**
  * The class which parse date time as String to Calendar.
  */
-public final class DateTimeParser {
+public final class SmartDateTimeParser {
 
-    private static final Logger LOG = LoggerFactory.getLogger(DateTimeParser.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SmartDateTimeParser.class);
 
-    private static final String INVALID_FORMAT = "INVALID FORMAT";
+    private static final String INVALID_FORMAT = "Invalid format";
 
     private static final Set<String> FORMATS = ImmutableSet.<String>builder().add("yyyy-MM-dd'T'HH:mm:ssX")
             .add("yyyy-MM-dd").add("yyyy-MM-dd'T'HH:mm:ss").add("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
@@ -35,21 +35,20 @@ public final class DateTimeParser {
     /**
      * Parse datetime from String to Date by pattern.
      *
-     * @param value the value that represent datetime.
-     *
+     * @param value   the value that represent datetime.
+     * @param pattern the pattern
      * @return the optional
      */
-    public static Date toDate(final String value, final String pattern) {
-        Date date = null;
+    public static Optional<Date> parseToDate(final String value, final String pattern) {
 
+        Date date = null;
         SimpleDateFormat formatter = new SimpleDateFormat(pattern);
         try {
             date = formatter.parse(value);
         } catch (ParseException e) {
             LOG.error("Error while parsing '{}' with pattern '{}'", new Object[] { value, pattern, e, });
-            Throwables.propagate(e);
         }
-        return date;
+        return Optional.fromNullable(date);
     }
 
     /**
@@ -58,6 +57,8 @@ public final class DateTimeParser {
      * @param value the value that represent datetime.
      *
      * @return the optional
+     *
+     * @throws ParseException the parse exception
      */
     public static Optional<Calendar> parse(final String value) throws ParseException {
         Optional<Calendar> parsedDate = parse(value, null);
@@ -94,6 +95,6 @@ public final class DateTimeParser {
         return Optional.fromNullable(result);
     }
 
-    private DateTimeParser() {
+    private SmartDateTimeParser() {
     }
 }

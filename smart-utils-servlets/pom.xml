@@ -34,10 +34,6 @@
             <artifactId>org.apache.felix.http.servlet-api</artifactId>
         </dependency>
 
-        <!--<dependency>-->
-            <!--<groupId>org.osgi</groupId>-->
-            <!--<artifactId>org.osgi.core</artifactId>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
@@ -47,33 +43,6 @@
             <artifactId>org.apache.sling.api</artifactId>
         </dependency>
 
-        <!--<dependency>-->
-            <!--<groupId>org.apache.felix</groupId>-->
-            <!--<artifactId>org.apache.felix.webconsole</artifactId>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.apache.sling</groupId>-->
-            <!--<artifactId>org.apache.sling.settings</artifactId>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.apache.sling</groupId>-->
-            <!--<artifactId>org.apache.sling.commons.json</artifactId>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>com.day.cq</groupId>-->
-            <!--<artifactId>cq-commons</artifactId>-->
-            <!--<scope>provided</scope>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>javax.jcr</groupId>-->
-            <!--<artifactId>jcr</artifactId>-->
-            <!--<scope>provided</scope>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.apache.jackrabbit</groupId>-->
-            <!--<artifactId>jackrabbit-jcr-commons</artifactId>-->
-            <!--<scope>provided</scope>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>org.apache.sling</groupId>
             <artifactId>org.apache.sling.jcr.api</artifactId>

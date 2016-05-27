@@ -8,13 +8,12 @@ import java.util.Map;
 /**
  * Simple holder for service configurations. Stores service pid and a map of properties.
  */
-//TODO: rename
-public final class FglConfiguration {
+public final class SiteConfiguration {
 
     private final String pid;
     private final Map<String, Object> properties;
 
-    public FglConfiguration(String pid) {
+    public SiteConfiguration(String pid) {
         this.pid = pid;
         this.properties = new HashMap<>();
     }

@@ -37,7 +37,7 @@ public class DamConsistencyHealthCheck extends AbstractRunmodeAwareHealthCheck {
     }
 
     @Override
-    protected void execute(FormattingResultLog resultLog) {
+    protected void execute(String siteName, FormattingResultLog resultLog) {
 
         try (ResolverHolder resolver = new ResolverHolder(resourceResolverFactory)) {
 

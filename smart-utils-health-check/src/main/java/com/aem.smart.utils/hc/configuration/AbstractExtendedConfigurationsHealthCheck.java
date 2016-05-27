@@ -3,12 +3,13 @@ package com.aem.smart.utils.hc.configuration;
 import com.aem.smart.utils.hc.AbstractRunmodeAwareHealthCheck;
 import com.aem.smart.utils.hc.configuration.util.ActualConfigurationsLoader;
 import com.aem.smart.utils.hc.configuration.util.ConfigurationLoader;
-import com.aem.smart.utils.hc.configuration.util.FglConfiguration;
+import com.aem.smart.utils.hc.configuration.util.SiteConfiguration;
 import com.aem.smart.utils.hc.configuration.util.PropertiesLogger;
 import com.aem.smart.utils.hc.configuration.util.RunmodesConfigurationLoader;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import org.apache.felix.scr.annotations.Component;
+import org.apache.felix.scr.annotations.Property;
 import org.apache.felix.scr.annotations.Reference;
 
 import java.util.Arrays;
@@ -77,9 +78,9 @@ abstract class AbstractExtendedConfigurationsHealthCheck extends AbstractRunmode
         return result;
     }
 
-    protected static Multimap<String, Object> toMultimap(Collection<FglConfiguration> source) {
+    protected static Multimap<String, Object> toMultimap(Collection<SiteConfiguration> source) {
         Multimap<String, Object> multimap = HashMultimap.create();
-        for (FglConfiguration configuration : source) {
+        for (SiteConfiguration configuration : source) {
             Map<String, Object> properties = configuration.getProperties();
             for (Map.Entry<String, Object> entry : properties.entrySet()) {
                 multimap.put(entry.getKey(), entry.getValue());

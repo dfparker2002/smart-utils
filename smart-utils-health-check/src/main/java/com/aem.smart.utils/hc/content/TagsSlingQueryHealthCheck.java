@@ -1,6 +1,6 @@
 package com.aem.smart.utils.hc.content;
 
-import com.aem.smart.utils.commons.api.WebsiteConfiguration;
+import com.aem.smart.utils.hc.api.WebsiteConfiguration;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.felix.scr.annotations.Property;
 import org.apache.felix.scr.annotations.Reference;

@@ -1,6 +1,6 @@
 package com.aem.smart.utils.hc;
 
-import com.aem.smart.utils.commons.api.HybrisRestConnectionConfig;
+import com.aem.smart.utils.hc.api.HybrisRestConnectionConfig;
 import org.apache.felix.scr.annotations.Property;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.sling.commons.osgi.PropertiesUtil;

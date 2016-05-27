@@ -37,7 +37,7 @@ import java.util.Set;
 )
 public class RunmodesConfigurationHealthCheck extends AbstractRunmodeAwareHealthCheck {
 
-    private static final String RUNMODES_PATH = "/apps/sportchek/runmodes";
+    private static final String RUNMODES_PATH = "/apps/%s/runmodes";
     private static final String RUNMODE_CONFIF_RESOURCE_TYPE = "sling:OsgiConfig";
     private static final String CONFIG = "config";
     private static final String AUTHOR = "author";
@@ -56,9 +56,7 @@ public class RunmodesConfigurationHealthCheck extends AbstractRunmodeAwareHealth
 
     @Property(
             cardinality = Integer.MAX_VALUE,
-            value = {
-                    "atmo"
-            },
+            value = {},
             label = "Runmodes to check",
             description = "If the list is not empty, just runmodes containing provided ones will be checked. If the " +
                     "list is empty, all runmodes will be checked."
@@ -90,13 +88,13 @@ public class RunmodesConfigurationHealthCheck extends AbstractRunmodeAwareHealth
     }
 
     @Override
-    protected void execute(FormattingResultLog log) {
+    protected void execute(String siteName, FormattingResultLog log) {
 
         try (ResolverHolder resolver = new ResolverHolder(resourceResolverFactory)) {
 
             Map<String, ComponentInfo> componentNameToServicePidMap = createComponentNameToServicePidMap();
 
-            Resource resource = resolver.getResolver().getResource(RUNMODES_PATH);
+            Resource resource = resolver.getResolver().getResource(String.format(RUNMODES_PATH, siteName));
             Set<String> runmodes = getCurrentRunModes();
 
             if (null == resource) {
@@ -187,7 +185,7 @@ public class RunmodesConfigurationHealthCheck extends AbstractRunmodeAwareHealth
     }
 
     /**
-     * Class that holds some data about {@link org.apache.felix.scr.Component} to be used in {@link com.fglsports.hc.content.ConsistencyCheckContext}
+     * Class that holds some data about {@link org.apache.felix.scr.Component} to be used in {@link com.aem.smart.utils.hc.content.ConsistencyCheckContext}
      */
     static final class ComponentInfo {
 
@@ -218,14 +216,8 @@ public class RunmodesConfigurationHealthCheck extends AbstractRunmodeAwareHealth
 
             ComponentInfo that = (ComponentInfo) o;
 
-            if (state != that.state) {
-                return false;
-            }
-            if (servicePid != null ? !servicePid.equals(that.servicePid) : that.servicePid != null) {
-                return false;
-            }
+            return state == that.state && (servicePid != null ? servicePid.equals(that.servicePid) : that.servicePid == null);
 
-            return true;
         }
 
         @Override

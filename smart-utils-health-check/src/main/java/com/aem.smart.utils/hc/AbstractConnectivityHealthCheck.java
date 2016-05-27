@@ -54,7 +54,7 @@ abstract class AbstractConnectivityHealthCheck extends AbstractRunmodeAwareHealt
     }
 
     @Override
-    protected void execute(FormattingResultLog resultLog) {
+    protected void execute(String siteName, FormattingResultLog resultLog) {
 
         try {
             String url = getUrlToCheck();

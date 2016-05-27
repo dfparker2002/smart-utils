@@ -13,7 +13,7 @@ public class DateTimeParserTest {
     @Test
     public void parseDateTimeSecondsWithTimeZone() throws ParseException {
         String value = "2011-02-14T10:10:00.000+02:00";
-        final Optional<Calendar> parse = DateTimeParser.parse(value);
+        final Optional<Calendar> parse = SmartDateTimeParser.parse(value);
 
         final Calendar calendar = parse.get();
 
@@ -27,7 +27,7 @@ public class DateTimeParserTest {
     @Test
     public void parseDateTimeSeconds() throws ParseException {
         String value = "2001-10-01T01:22:22.000";
-        final Optional<Calendar> parse = DateTimeParser.parse(value);
+        final Optional<Calendar> parse = SmartDateTimeParser.parse(value);
 
         final Calendar calendar = parse.get();
 
@@ -41,7 +41,7 @@ public class DateTimeParserTest {
     @Test
     public void parseDateTime() throws ParseException {
         String value = "2016-08-14T08:08:00";
-        final Optional<Calendar> parse = DateTimeParser.parse(value);
+        final Optional<Calendar> parse = SmartDateTimeParser.parse(value);
 
         final Calendar calendar = parse.get();
 
@@ -55,7 +55,7 @@ public class DateTimeParserTest {
     @Test
     public void parseDateTimeWithWhitespace() throws ParseException {
         String value = "2099-09-20 01:07:00";
-        final Optional<Calendar> parse = DateTimeParser.parse(value);
+        final Optional<Calendar> parse = SmartDateTimeParser.parse(value);
 
         final Calendar calendar = parse.get();
 
@@ -69,7 +69,7 @@ public class DateTimeParserTest {
     @Test
     public void parseDate() throws ParseException {
         String value = "2098-12-25";
-        final Optional<Calendar> parse = DateTimeParser.parse(value);
+        final Optional<Calendar> parse = SmartDateTimeParser.parse(value);
 
         final Calendar calendar = parse.get();
 
@@ -81,7 +81,7 @@ public class DateTimeParserTest {
     @Test(expected = ParseException.class)
     public void parseNotValidString() throws ParseException {
         String value = "bklsdjfk016sad-02-14";
-        DateTimeParser.parse(value);
+        SmartDateTimeParser.parse(value);
     }
 
 

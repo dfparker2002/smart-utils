@@ -1,7 +1,6 @@
 package com.aem.smart.utils.hc.configuration;
 
-import com.aem.smart.utils.commons.api.WebsiteConfiguration;
-import com.aem.smart.utils.hc.AbstractRunmodeAwareHealthCheck;
+import java.util.Collection;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -9,37 +8,49 @@ import org.apache.felix.scr.annotations.Reference;
 import org.apache.sling.hc.annotations.SlingHealthCheck;
 import org.apache.sling.hc.util.FormattingResultLog;
 
-import java.util.Collection;
+import com.aem.smart.utils.hc.AbstractRunmodeAwareHealthCheck;
+import com.aem.smart.utils.hc.api.WebsiteConfiguration;
 
 /**
- *
+ * The type Website configuration service health check.
  */
-@SlingHealthCheck(
-        name = "Website Configuration Service Health Check",
-        mbeanName = "websiteConfigHC",
-        description = "Website Configuration Service Health Check",
-        tags = {"atmosphere", "configuration"}
-)
+@SlingHealthCheck(name = "Website Configuration Service Health Check", mbeanName = "websiteConfigHC", description = "Website Configuration Service Health Check", tags = {
+        "atmosphere", "configuration" })
 public class WebsiteConfigurationServiceHealthCheck extends AbstractRunmodeAwareHealthCheck {
 
     @Reference
     private WebsiteConfiguration websiteConfiguration;
 
     @Override
-    protected void execute(FormattingResultLog resultLog) {
-        new WebsiteConfigurationChecker(resultLog)
-                .checkWebsiteConfigurations(websiteConfiguration.getConfigurations());
+    protected void execute(String siteName, FormattingResultLog resultLog) {
+        new WebsiteConfigurationChecker(resultLog).checkWebsiteConfigurations(websiteConfiguration.getConfigurations());
     }
 }
 
+/**
+ * The type Website configuration checker.
+ */
 class WebsiteConfigurationChecker {
 
+    /**
+     * The Result log.
+     */
     final FormattingResultLog resultLog;
 
+    /**
+     * Instantiates a new Website configuration checker.
+     *
+     * @param resultLog the result log
+     */
     public WebsiteConfigurationChecker(FormattingResultLog resultLog) {
         this.resultLog = resultLog;
     }
 
+    /**
+     * Check website configurations.
+     *
+     * @param websiteConfigurations the website configurations
+     */
     public void checkWebsiteConfigurations(Collection<WebsiteConfiguration> websiteConfigurations) {
         if (CollectionUtils.isEmpty(websiteConfigurations)) {
             resultLog.warn("No website configurations were found!");
@@ -51,21 +62,14 @@ class WebsiteConfigurationChecker {
         }
     }
 
+    /**
+     * Check website configuration.
+     *
+     * @param websiteConfiguration the website configuration
+     */
     public void checkWebsiteConfiguration(WebsiteConfiguration websiteConfiguration) {
         resultLog.debug("Found configuration '{}'", websiteConfiguration.getWebsiteName());
         checkHosts(websiteConfiguration);
-        //TODO : add universal checker based on interfaces that user could implement own checker
-      //  checkHybrisBaseSite(websiteConfiguration);
-      //  checkHybrisBaseCatalog(websiteConfiguration);
-       // checkOnlineStoreId(websiteConfiguration);
-    }
-
-    private void checkIfBlank(String value, String warnMessage, String debugMessage) {
-        if (StringUtils.isBlank(value)) {
-            resultLog.warn(warnMessage);
-        } else {
-            resultLog.debug(debugMessage, value);
-        }
     }
 
     private void checkHosts(WebsiteConfiguration websiteConfiguration) {
@@ -82,25 +86,4 @@ class WebsiteConfigurationChecker {
             }
         }
     }
-
-//    private void checkOnlineStoreId(WebsiteConfiguration websiteConfiguration) {
-//        checkIfBlank(websiteConfiguration.getOnlineStoreId(),
-//                     "\tInvalid configuration for Online Store Id",
-//                     "\tOnline Store Id '{}' is OK"
-//        );
-//    }
-//
-//    private void checkHybrisBaseCatalog(WebsiteConfiguration websiteConfiguration) {
-//        checkIfBlank(websiteConfiguration.getHybrisBaseCatalog(),
-//                     "\tInvald configuration for Hybris Base Catalog",
-//                     "\tHybris Base Catalog '{}' is OK"
-//        );
-//    }
-//
-//    private void checkHybrisBaseSite(WebsiteConfiguration websiteConfiguration) {
-//        checkIfBlank(websiteConfiguration.getHybrisBaseSite(),
-//                     "\tInvalid configurations for Hybris Base Site",
-//                     "\tHybris Base Site '{}' is OK"
-//        );
-//    }
 }

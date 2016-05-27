@@ -47,15 +47,16 @@ public class RunmodesConfigurationLoader implements ConfigurationLoader {
     }
 
     @Override
-    public Multimap<String, FglConfiguration> loadConfigurations(FormattingResultLog resultLog) {
-        return loadConfigurationsInner(new EmptyRunmodeConfigurationsFilter(), resultLog);
+    public Multimap<String, SiteConfiguration> loadConfigurations(String siteName, FormattingResultLog resultLog) {
+        return loadConfigurationsInner(siteName, new EmptyRunmodeConfigurationsFilter(), resultLog);
     }
 
     @Override
-    public Multimap<String, FglConfiguration> loadConfigurations(Collection<String> servicePids,
-            FormattingResultLog resultLog) {
+    public Multimap<String, SiteConfiguration> loadConfigurations(String siteName,
+                                                                  Collection<String> servicePids,
+                                                                  FormattingResultLog resultLog) {
 
-        return loadConfigurationsInner(new SimpleRunmodeConfigurationsFilter(servicePids), resultLog);
+        return loadConfigurationsInner(siteName, new SimpleRunmodeConfigurationsFilter(servicePids), resultLog);
     }
 
     private String getCurrentRunmodeName() {
@@ -83,17 +84,18 @@ public class RunmodesConfigurationLoader implements ConfigurationLoader {
         return Joiner.on(".").join(resultSet);
     }
 
-    private Multimap<String, FglConfiguration> loadConfigurationsInner(RunmodeConfigurationsFilter filter,
-            FormattingResultLog resultLog) {
+    private Multimap<String, SiteConfiguration> loadConfigurationsInner(String siteName,
+                                                                        RunmodeConfigurationsFilter filter,
+                                                                        FormattingResultLog resultLog) {
 
-        Multimap<String, FglConfiguration> fglConfigurationsMap = ArrayListMultimap.create();
+        Multimap<String, SiteConfiguration> configurationsMap = ArrayListMultimap.create();
 
         String currentRunmode = getCurrentRunmodeName();
 
         if (!currentRunmode.startsWith("config.author") && !currentRunmode.startsWith("config.publish")) {
             resultLog.warn("Invalid runmode '{}'!", currentRunmode);
             LOGGER.warn("Invalid runmode '{}'!", currentRunmode);
-            return fglConfigurationsMap;
+            return configurationsMap;
 
         } else {
             resultLog.info("Determined current runmode as '{}'", currentRunmode);
@@ -108,7 +110,7 @@ public class RunmodesConfigurationLoader implements ConfigurationLoader {
             QueryManager queryManager = session.getWorkspace().getQueryManager();
 
             RunmodesConfigurationLoaderHelper configurationLoaderHelper =
-                    new RunmodesConfigurationLoaderHelper(queryManager, resultLog);
+                    new RunmodesConfigurationLoaderHelper(siteName, queryManager, resultLog);
 
             Iterator<String> runmodeNameIterator = new RunmodeNamesHierarchicalIterator(currentRunmode);
             while (runmodeNameIterator.hasNext()) {
@@ -118,7 +120,7 @@ public class RunmodesConfigurationLoader implements ConfigurationLoader {
                 }
             }
 
-            fglConfigurationsMap = configurationLoaderHelper.getFglConfigurationsMap();
+            configurationsMap = configurationLoaderHelper.getFglConfigurationsMap();
 
         } catch (RepositoryException ex) {
             LOGGER.error("Failed to get runmodes configurations", ex);
@@ -129,7 +131,7 @@ public class RunmodesConfigurationLoader implements ConfigurationLoader {
             }
         }
 
-        return fglConfigurationsMap;
+        return configurationsMap;
     }
 
     private void moveRunmodeIfPresent(String value, Set<String> sourceSet, Set<String> targetSet) {

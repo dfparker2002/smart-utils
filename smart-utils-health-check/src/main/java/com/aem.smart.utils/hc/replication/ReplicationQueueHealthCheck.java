@@ -44,7 +44,7 @@ public class ReplicationQueueHealthCheck extends AbstractRunmodeAwareHealthCheck
     }
 
     @Override
-    protected void execute(FormattingResultLog resultLog) {
+    protected void execute(String siteName, FormattingResultLog resultLog) {
 
         int failures = 0;
 

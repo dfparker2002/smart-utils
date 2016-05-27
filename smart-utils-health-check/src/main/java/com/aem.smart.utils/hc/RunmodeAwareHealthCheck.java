@@ -25,6 +25,11 @@ public interface RunmodeAwareHealthCheck extends HealthCheck {
     String ENABLED_ON_RUNMODES_PROPERTY = "enabled.on.runmodes";
 
     /**
+     * Property name.
+     */
+    String SITE_NAMES = "site.names";
+
+    /**
      * @return set of runmodes to run this health check on. If the list is empty, than health check won't be run at all.
      */
     Set<String> getEnabledOnRunmodes();

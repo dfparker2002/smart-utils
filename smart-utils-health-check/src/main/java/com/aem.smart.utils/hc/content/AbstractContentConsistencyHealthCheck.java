@@ -53,7 +53,7 @@ abstract class AbstractContentConsistencyHealthCheck extends AbstractRunmodeAwar
     }
 
     @Override
-    protected void execute(FormattingResultLog log) {
+    protected void execute(String siteName, FormattingResultLog log) {
         try (ResolverHolder resolver = new ResolverHolder(resourceResolverFactory)) {
 
             for (String pathToCheck : getPathsToCheck()) {
@@ -65,7 +65,7 @@ abstract class AbstractContentConsistencyHealthCheck extends AbstractRunmodeAwar
                 }
 
                 boolean atLeastOneValidEntryFound = false;
-                // TODO: ATMO: optimize properly
+
                 for (String resourceTypeToSearch : getResourceTypesToSearch()) {
                     final SlingQuery query = SlingQuery.$(resource).find(resourceTypeToSearch);
                     int count = 0;

@@ -8,13 +8,13 @@ import org.joda.time.format.DateTimeFormatter;
 /**
  * The type Date formatter.
  */
-public final class DateFormatter {
+public final class SmartDateFormatter {
 
-    private DateFormatter() {
+    private SmartDateFormatter() {
     }
 
     /**
-     * Format Calendar by pattern and return empty string if fail.
+     * Format Calendar by provided pattern and return empty string if null value or wrong pattern.
      *
      * @param date    the date
      * @param pattern the pattern

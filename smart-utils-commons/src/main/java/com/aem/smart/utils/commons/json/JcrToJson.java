@@ -15,6 +15,9 @@ public final class JcrToJson {
 
     private static final String VALUE = "value";
 
+    private JcrToJson() {
+    }
+
     /**
      * Convert Set of String to json object array with given structure:
      *
@@ -27,7 +30,7 @@ public final class JcrToJson {
      *          {...}
      *      ],
      *     "jcr:title": {@value} from collectionName,
-     *     "jcr:primaryType": "sling:OrderedFolder",
+     *     "jcr:primaryType": "{primaryType}",
      * }
      *
      * @param items          the items
@@ -35,7 +38,7 @@ public final class JcrToJson {
      * @return the json object
      * @throws JSONException the json exception
      */
-    public static JSONObject toJson(final Set<String> items, final String collectionName) throws JSONException {
+    public static JSONObject toJson(final Set<String> items, final String collectionName , String primaryType) throws JSONException {
 
         JSONObject hitsJSONObject = new JSONObject();
 
@@ -46,11 +49,8 @@ public final class JcrToJson {
             hitsJSONObject.put(item, jsonObject);
         }
         hitsJSONObject.put(JCR_TITLE, collectionName);
-        hitsJSONObject.put(JCR_PRIMARYTYPE, "sling:OrderedFolder");
+        hitsJSONObject.put(JCR_PRIMARYTYPE, primaryType);
 
         return hitsJSONObject;
-    }
-
-    private JcrToJson() {
     }
 }

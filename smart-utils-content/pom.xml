@@ -21,66 +21,60 @@
     </description>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/content/jcr_root</directory>
+                <filtering>false</filtering>
+                <excludes>
+                    <exclude>**/.vlt</exclude>
+                    <exclude>**/.vltignore</exclude>
+                    <exclude>**/.DS_Store</exclude>
+                </excludes>
+            </resource>
+        </resources>
         <plugins>
-            <plugin>
-                <groupId>com.day.jcr.vault</groupId>
-                <artifactId>maven-vault-plugin</artifactId>
-                <extensions>true</extensions>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>copy-content-resources</id>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}/vault-work</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>${basedir}/src/main/content</directory>
-                                    <filtering>true</filtering>
-                                    <excludes>
-                                        <exclude>**/.svn</exclude>
-                                        <exclude>**/.vlt</exclude>
-                                        <exclude>**/.vltignore</exclude>
-                                        <exclude>**/.DS_Store</exclude>
-                                    </excludes>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
+                <configuration>
+                    <includeEmptyDirs>true</includeEmptyDirs>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.day.jcr.vault</groupId>
+                <artifactId>content-package-maven-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <group>smart-utils</group>
+                    <filterSource>src/main/content/META-INF/vault/filter.xml</filterSource>
+                    <embeddeds>
+                        <embedded>
+                            <groupId>${project.groupId}</groupId>
+                            <artifactId>smart-utils-bundle</artifactId>
+                            <target>/apps/smart-utils/install</target>
+                        </embedded>
+                    </embeddeds>
+                    <targetURL>http://${cq.host}:${cq.port}/crx/packmgr/service.jsp</targetURL>
+                </configuration>
             </plugin>
         </plugins>
     </build>
 
     <profiles>
         <profile>
-            <id>auto-deploy</id>
-            <!--
-                when activated, this profile will deploy and install the built CQ package to the target server.
-            -->
+            <id>deploy-content</id>
             <build>
                 <plugins>
                     <plugin>
                         <groupId>com.day.jcr.vault</groupId>
-                        <artifactId>maven-vault-plugin</artifactId>
+                        <artifactId>content-package-maven-plugin</artifactId>
                         <executions>
                             <execution>
-                                <id>install-package</id>
+                                <id>install-content-package</id>
+                                <phase>install</phase>
                                 <goals>
                                     <goal>install</goal>
                                 </goals>
-                                <configuration>
-                                    <packageFile>${project.build.directory}/${project.build.finalName}.zip</packageFile>
-                                    <targetURL>http://${cq.host}:${cq.port}/crx/packmgr/service.jsp</targetURL>
-                                    <userId>${cq.user}</userId>
-                                    <password>${cq.password}</password>
-                                </configuration>
                             </execution>
                         </executions>
                     </plugin>

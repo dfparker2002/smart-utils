@@ -1,4 +1,4 @@
-package com.cq5.smart.utils.servlets;
+package com.aem.smart.utils.servlets;
 
 import java.io.IOException;
 import java.util.Iterator;
@@ -25,7 +25,7 @@ public class PurgeEmptyWorkflowFolder extends SlingAllMethodsServlet {
 
     static final String MAPPING_PATH = "/services/utils/purgeEmptyFolder";
 
-    public static final String PATH = "/etc/workflow/instances";
+    private static final String PATH = "/etc/workflow/instances";
 
     @Override
     protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) throws ServletException,

@@ -1,15 +1,17 @@
 package com.aem.smart.utils.services.osgi.common.impl;
 
-import com.aem.smart.utils.services.osgi.common.FileWriterDecorator;
-import com.aem.smart.utils.services.osgi.common.LogFilter;
-import com.aem.smart.utils.services.osgi.common.OutputStrategy;
-import org.apache.sling.api.SlingHttpServletResponse;
-
 import java.io.File;
 import java.io.IOException;
 
+import org.apache.sling.api.SlingHttpServletResponse;
+
+import com.aem.smart.utils.services.osgi.common.FileWriterDecorator;
+import com.aem.smart.utils.services.osgi.common.LogFilter;
+import com.aem.smart.utils.services.osgi.common.OutputStrategy;
+
+
 /**
- * Author: Andrii_Manuiev
+ * The type Simple output strategy.
  */
 public class SimpleOutputStrategy implements OutputStrategy {
 

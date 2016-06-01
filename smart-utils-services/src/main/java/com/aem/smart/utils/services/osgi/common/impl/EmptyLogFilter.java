@@ -7,9 +7,6 @@ import java.io.PrintWriter;
 import java.nio.charset.Charset;
 import java.util.zip.DeflaterOutputStream;
 
-/**
- * Author: Andrii_Manuiev
- */
 public class EmptyLogFilter implements LogFilter {
 
     @Override

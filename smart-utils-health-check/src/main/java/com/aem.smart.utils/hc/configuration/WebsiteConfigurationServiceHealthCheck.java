@@ -15,7 +15,7 @@ import com.aem.smart.utils.hc.api.WebsiteConfiguration;
  * The type Website configuration service health check.
  */
 @SlingHealthCheck(name = "Website Configuration Service Health Check", mbeanName = "websiteConfigHC", description = "Website Configuration Service Health Check", tags = {
-        "atmosphere", "configuration" })
+        "configuration" })
 public class WebsiteConfigurationServiceHealthCheck extends AbstractRunmodeAwareHealthCheck {
 
     @Reference

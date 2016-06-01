@@ -11,7 +11,7 @@ import org.apache.sling.hc.annotations.SlingHealthCheck;
         name = "Hybris Configuration Health Check",
         label = "Hybris Configuration Health Check",
         description = "Checks hybris configuration for validity",
-        tags = { "atmosphere", "configuration" }
+        tags = { "configuration" }
 )
 public class HybrisConfigurationHealthCheck extends AbstractConfigurationHealthCheck {
 

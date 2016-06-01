@@ -5,13 +5,29 @@ import java.io.PrintWriter;
 import java.util.zip.DeflaterOutputStream;
 
 /**
- * Author: Andrii_Manuiev
+ * The interface Log filter.
  */
 public interface LogFilter {
 
-    public static final String ENCODING = "UTF-8";
+    /**
+     * The constant ENCODING.
+     */
+    String ENCODING = "UTF-8";
 
-    public void apply(PrintWriter writer, String line);
+    /**
+     * Apply.
+     *
+     * @param writer the writer
+     * @param line   the line
+     */
+    void apply(PrintWriter writer, String line);
 
-    public void apply(DeflaterOutputStream stream, String line) throws IOException;
+    /**
+     * Apply.
+     *
+     * @param stream the stream
+     * @param line   the line
+     * @throws IOException the io exception
+     */
+    void apply(DeflaterOutputStream stream, String line) throws IOException;
 }

@@ -1,6 +1,14 @@
 package com.aem.smart.utils.services.osgi.smartlogger;
 
-import com.day.cq.commons.TidyJSONWriter;
+import java.io.File;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.servlet.ServletException;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.sling.SlingServlet;
@@ -12,19 +20,13 @@ import org.apache.sling.settings.SlingSettingsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.ServletException;
-import java.io.File;
-import java.io.IOException;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
+import com.day.cq.commons.TidyJSONWriter;
 
 /**
- * User: Andrii_Manuiev
- * Date: 22.05.13
+ * The type Smart log.
  * Provide information about log files for plugin.
  */
-@SlingServlet(metatype = false, paths = "/services/smart-utils/smartlogs")
+@SlingServlet(paths = "/services/smart-utils/smartlogs")
 public class SmartLog extends SlingAllMethodsServlet {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SmartLog.class);
@@ -36,7 +38,8 @@ public class SmartLog extends SlingAllMethodsServlet {
     private SlingSettingsService slingSettings;
 
     @Override
-    protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response)
+            throws ServletException, IOException {
         response.setContentType(CONTENT_TYPE);
         response.setCharacterEncoding(PAGE_ENCODING);
 
@@ -58,15 +61,18 @@ public class SmartLog extends SlingAllMethodsServlet {
     }
 
     private List<String> getFileList() {
-        List<String> result = new LinkedList<String>();
+
+        List<String> result = new LinkedList<>();
 
         String path = slingSettings.getAbsolutePathWithinSlingHome("logs");
         File logsFolder = new File(path);
-        final Collection<File> listOfLogs = FileUtils.listFiles(logsFolder, new String[]{"log"}, true);
+        final Collection<File> listOfLogs = FileUtils.listFiles(logsFolder, new String[] { "log" }, true);
 
-        for (File logFile : listOfLogs) {
-            result.add(String.format("%s", logFile.getAbsolutePath().replace(path + File.separator, "")));
-        }
+        result.addAll(
+                listOfLogs.stream()
+                        .map(logFile -> String.format("%s",
+                                logFile.getAbsolutePath().replace(path + File.separator, "")))
+                        .collect(Collectors.toList()));
         return result;
     }
 }

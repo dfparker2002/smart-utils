@@ -67,15 +67,10 @@ public class ReplicationAgentsConfigurationsLogger {
     }
 
     private Set<String> filterKeys(Set<String> keys) {
-        return Sets.filter(keys, new Predicate<String>() {
-            @Override
-            public boolean apply(String input) {
-                return null != input &&
-                        !input.startsWith("sling") &&
-                        !input.startsWith("cq") &&
-                        !input.startsWith("jcr");
-            }
-        });
+        return Sets.filter(keys, input -> null != input &&
+                !input.startsWith("sling") &&
+                !input.startsWith("cq") &&
+                !input.startsWith("jcr"));
     }
 
     private String logProperties(Resource pathResource) {

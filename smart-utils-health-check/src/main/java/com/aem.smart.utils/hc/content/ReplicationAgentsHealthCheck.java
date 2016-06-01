@@ -14,7 +14,7 @@ import org.apache.sling.hc.annotations.SlingHealthCheck;
  *
  */
 @SlingHealthCheck(name = "Replication Agents Health Check (with SlingQuery)", label = "Replication Agents Health Check (with SlingQuery)", description = "Checks and reports enabled replication agents (with SlingQuery)", tags = {
-        "atmosphere", "replication" })
+        "replication" })
 public class ReplicationAgentsHealthCheck extends AbstractContentConsistencyHealthCheck {
 
     @Property(cardinality = Integer.MAX_VALUE, value = { "/etc/replication/agents.author",

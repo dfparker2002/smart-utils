@@ -1,14 +1,16 @@
 package com.aem.smart.utils.hc.content;
 
-import com.aem.smart.utils.commons.jcr.ResolverHolder;
-import com.aem.smart.utils.hc.AbstractRunmodeAwareHealthCheck;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.felix.scr.annotations.Property;
-import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.Component;
 import org.apache.felix.scr.ScrService;
+import org.apache.felix.scr.annotations.Property;
+import org.apache.felix.scr.annotations.Reference;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolverFactory;
 import org.apache.sling.commons.osgi.PropertiesUtil;
@@ -17,24 +19,17 @@ import org.apache.sling.hc.util.FormattingResultLog;
 import org.apache.sling.query.SlingQuery;
 import org.osgi.framework.Constants;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import com.aem.smart.utils.commons.jcr.ResolverHolder;
+import com.aem.smart.utils.hc.AbstractRunmodeAwareHealthCheck;
 
 /**
  *
  */
-@SlingHealthCheck(
-        name = "Runmodes configuration consistency Health Check",
-        label = "Runmodes configuration consistency Health Check",
-        description = "Checks runmodes configurations for relevance. If configuration name, i.e. fully qualified name " +
-                "is not present among OSGi components, it's assumed that config is not actual and can/should be deleted. " +
-                "NOTE: If some components are in 'unsatisfied' state and this component was declared as configuration " +
-                "factory, healthcheck most probably won't be able to identify that and will complain that factory " +
-                "config may be missing. In this case check components status.",
-        tags = { "atmosphere", "consistency", "configuration" }
-)
+@SlingHealthCheck(name = "Runmodes configuration consistency Health Check", label = "Runmodes configuration consistency Health Check", description = "Checks runmodes configurations for relevance. If configuration name, i.e. fully qualified name "
+        + "is not present among OSGi components, it's assumed that config is not actual and can/should be deleted. "
+        + "NOTE: If some components are in 'unsatisfied' state and this component was declared as configuration "
+        + "factory, healthcheck most probably won't be able to identify that and will complain that factory "
+        + "config may be missing. In this case check components status.", tags = { "consistency", "configuration" })
 public class RunmodesConfigurationHealthCheck extends AbstractRunmodeAwareHealthCheck {
 
     private static final String RUNMODES_PATH = "/apps/%s/runmodes";
@@ -43,24 +38,12 @@ public class RunmodesConfigurationHealthCheck extends AbstractRunmodeAwareHealth
     private static final String AUTHOR = "author";
     private static final String PUBLISH = "publish";
 
-    @Property(
-            cardinality = Integer.MAX_VALUE,
-            value = {
-                    "org.apache.felix.http",
-                    "org.apache.sling.commons.log",
-                    "com.fglsports.saui"
-            },
-            label = "Runmode configurations to skip"
-    )
+    @Property(cardinality = Integer.MAX_VALUE, value = { "org.apache.felix.http", "org.apache.sling.commons.log",
+            "com.fglsports.saui" }, label = "Runmode configurations to skip")
     private static final String RUNMODE_CONFIGURATIONS_TO_SKIP_PROPERTY = "runmode.configurations.to.skip";
 
-    @Property(
-            cardinality = Integer.MAX_VALUE,
-            value = {},
-            label = "Runmodes to check",
-            description = "If the list is not empty, just runmodes containing provided ones will be checked. If the " +
-                    "list is empty, all runmodes will be checked."
-    )
+    @Property(cardinality = Integer.MAX_VALUE, value = {}, label = "Runmodes to check", description = "If the list is not empty, just runmodes containing provided ones will be checked. If the "
+            + "list is empty, all runmodes will be checked.")
     private static final String RUNMODES_TO_CHECK_PROPERTY = "runmodes.to.check";
 
     private String[] runmodeConfigurationsToSkip = ArrayUtils.EMPTY_STRING_ARRAY;
@@ -79,12 +62,10 @@ public class RunmodesConfigurationHealthCheck extends AbstractRunmodeAwareHealth
         Objects.requireNonNull(resourceResolverFactory, "No reference to ResourceResolverFactory");
         Objects.requireNonNull(scrService, "No reference to ScrService");
 
-        this.runmodeConfigurationsToSkip = PropertiesUtil.toStringArray(
-                properties.get(RUNMODE_CONFIGURATIONS_TO_SKIP_PROPERTY), ArrayUtils.EMPTY_STRING_ARRAY
-        );
-        this.runmodesToCheck = PropertiesUtil.toStringArray(
-                properties.get(RUNMODES_TO_CHECK_PROPERTY), ArrayUtils.EMPTY_STRING_ARRAY
-        );
+        this.runmodeConfigurationsToSkip = PropertiesUtil
+                .toStringArray(properties.get(RUNMODE_CONFIGURATIONS_TO_SKIP_PROPERTY), ArrayUtils.EMPTY_STRING_ARRAY);
+        this.runmodesToCheck = PropertiesUtil.toStringArray(properties.get(RUNMODES_TO_CHECK_PROPERTY),
+                ArrayUtils.EMPTY_STRING_ARRAY);
     }
 
     @Override
@@ -104,8 +85,8 @@ public class RunmodesConfigurationHealthCheck extends AbstractRunmodeAwareHealth
                 final SlingQuery query = SlingQuery.$(resource).find(RUNMODE_CONFIF_RESOURCE_TYPE);
                 int count = 0;
                 for (Resource pathResource : query) {
-                    ComponentPresenceConsistencyCheckContext context =
-                            new CustomConsistencyCheckContext(pathResource, componentNameToServicePidMap, log);
+                    ComponentPresenceConsistencyCheckContext context = new CustomConsistencyCheckContext(pathResource,
+                            componentNameToServicePidMap, log);
                     checkConsistencyInner(context, runmodes);
                     ++count;
                 }
@@ -132,7 +113,8 @@ public class RunmodesConfigurationHealthCheck extends AbstractRunmodeAwareHealth
         try {
             String resourcePath = context.getResourcePath();
             String configurationName = StringUtils.substringAfterLast(resourcePath, "/");
-            String runmodeName = StringUtils.substringAfterLast(StringUtils.substringBeforeLast(resourcePath, "/"), "/");
+            String runmodeName = StringUtils.substringAfterLast(StringUtils.substringBeforeLast(resourcePath, "/"),
+                    "/");
 
             if (shouldSkipRunmode(runmodeName, runmodes) || shouldSkipConfiguration(configurationName)) {
                 return;
@@ -152,10 +134,10 @@ public class RunmodesConfigurationHealthCheck extends AbstractRunmodeAwareHealth
     }
 
     private boolean shouldSkipRunmode(String runmodeName, Set<String> runmodes) {
-        boolean result = !runmodeName.contains(CONFIG) ||
-                !runmodeName.contains(AUTHOR) && !runmodeName.contains(PUBLISH) ||
-                runmodeName.contains(AUTHOR) && !runmodes.contains(AUTHOR) ||
-                runmodeName.contains(PUBLISH) && !runmodes.contains(PUBLISH);
+        boolean result = !runmodeName.contains(CONFIG)
+                || !runmodeName.contains(AUTHOR) && !runmodeName.contains(PUBLISH)
+                || runmodeName.contains(AUTHOR) && !runmodes.contains(AUTHOR)
+                || runmodeName.contains(PUBLISH) && !runmodes.contains(PUBLISH);
 
         for (String runmodeToCheck : runmodesToCheck) {
             result = result || !runmodeName.contains(runmodeToCheck);
@@ -216,7 +198,8 @@ public class RunmodesConfigurationHealthCheck extends AbstractRunmodeAwareHealth
 
             ComponentInfo that = (ComponentInfo) o;
 
-            return state == that.state && (servicePid != null ? servicePid.equals(that.servicePid) : that.servicePid == null);
+            return state == that.state
+                    && (servicePid != null ? servicePid.equals(that.servicePid) : that.servicePid == null);
 
         }
 
@@ -236,7 +219,8 @@ public class RunmodesConfigurationHealthCheck extends AbstractRunmodeAwareHealth
 
         private final Map<String, ComponentInfo> componentNameToServicePidMap;
 
-        public CustomConsistencyCheckContext(Resource currentResource, Map<String, ComponentInfo> map, FormattingResultLog resultLog) {
+        public CustomConsistencyCheckContext(Resource currentResource, Map<String, ComponentInfo> map,
+                FormattingResultLog resultLog) {
             super(currentResource, resultLog);
             this.componentNameToServicePidMap = map;
         }
@@ -274,33 +258,33 @@ public class RunmodesConfigurationHealthCheck extends AbstractRunmodeAwareHealth
             String state;
 
             switch (componentState) {
-                case Component.STATE_DISABLED: {
-                    state = "DISABLED";
-                    break;
-                }
-                case Component.STATE_UNSATISFIED: {
-                    state = "UNSATISFIED";
-                    break;
-                }
-                case Component.STATE_ACTIVE: {
-                    state = "ACTIVE";
-                    break;
-                }
-                case Component.STATE_REGISTERED: {
-                    state = "REGISTERED";
-                    break;
-                }
-                case Component.STATE_FACTORY: {
-                    state = "FACTORY";
-                    break;
-                }
-                case Component.STATE_DISPOSED: {
-                    state = "DISPOSED";
-                    break;
-                }
-                default: {
-                    state = "UNKNOWN / NOT HANDLED";
-                }
+            case Component.STATE_DISABLED: {
+                state = "DISABLED";
+                break;
+            }
+            case Component.STATE_UNSATISFIED: {
+                state = "UNSATISFIED";
+                break;
+            }
+            case Component.STATE_ACTIVE: {
+                state = "ACTIVE";
+                break;
+            }
+            case Component.STATE_REGISTERED: {
+                state = "REGISTERED";
+                break;
+            }
+            case Component.STATE_FACTORY: {
+                state = "FACTORY";
+                break;
+            }
+            case Component.STATE_DISPOSED: {
+                state = "DISPOSED";
+                break;
+            }
+            default: {
+                state = "UNKNOWN / NOT HANDLED";
+            }
             }
 
             return state;

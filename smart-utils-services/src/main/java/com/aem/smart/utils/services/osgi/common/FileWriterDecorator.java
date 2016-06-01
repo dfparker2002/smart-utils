@@ -1,19 +1,16 @@
 package com.aem.smart.utils.services.osgi.common;
 
-import com.aem.smart.utils.services.osgi.smartlogger.TailThread;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.charset.Charset;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.aem.smart.utils.services.osgi.smartlogger.TailThread;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Andrii_Manuiev
- * Date: 20.05.13
- * Time: 15:51
+ * The type File writer decorator.
  * Decorator for Print Writer. Can output a text file line by line.
  */
 public class FileWriterDecorator {
@@ -22,16 +19,22 @@ public class FileWriterDecorator {
 
     private final PrintWriter writer;
 
-    private Charset utf8 = Charset.forName("UTF-8");
-
+    /**
+     * Instantiates a new File writer decorator.
+     *
+     * @param writer the writer
+     */
     public FileWriterDecorator(PrintWriter writer) {
         this.writer = writer;
     }
 
-    public void print(String text) {
-        writer.println(text);
-    }
-
+    /**
+     * Print file.
+     *
+     * @param file   the file
+     * @param filter the filter
+     * @throws IOException the io exception
+     */
     public void printFile(File file, LogFilter filter) throws IOException {
         TailThread tailThread = new TailThread(file, writer, LOGGER, filter);
         tailThread.run();

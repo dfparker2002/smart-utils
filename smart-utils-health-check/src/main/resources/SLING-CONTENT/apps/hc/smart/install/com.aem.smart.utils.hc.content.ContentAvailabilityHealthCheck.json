@@ -2,6 +2,6 @@
     "jcr:primaryType" : "sling:OsgiConfig",
     "path" : [],
     "hc.name" : "Content Availability Health Check",
-    "hc.tags" : [content, request, sling],
+    "hc.tags" : ["content", "request", "sling"],
     "hc.mbean.name" : "contentAvailabilityHC"
 }

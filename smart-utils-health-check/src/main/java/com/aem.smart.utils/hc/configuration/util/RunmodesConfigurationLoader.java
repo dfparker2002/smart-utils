@@ -1,8 +1,16 @@
 package com.aem.smart.utils.hc.configuration.util;
 
-import com.google.common.base.Joiner;
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Multimap;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import javax.jcr.RepositoryException;
+import javax.jcr.query.QueryManager;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
@@ -14,16 +22,10 @@ import org.apache.sling.settings.SlingSettingsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.jcr.RepositoryException;
-import javax.jcr.Session;
-import javax.jcr.query.QueryManager;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import com.aem.smart.utils.commons.jcr.SessionHolder;
+import com.google.common.base.Joiner;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
 
 /**
  * Loads configurations from current runmode(-s).
@@ -52,9 +54,8 @@ public class RunmodesConfigurationLoader implements ConfigurationLoader {
     }
 
     @Override
-    public Multimap<String, SiteConfiguration> loadConfigurations(String siteName,
-                                                                  Collection<String> servicePids,
-                                                                  FormattingResultLog resultLog) {
+    public Multimap<String, SiteConfiguration> loadConfigurations(String siteName, Collection<String> servicePids,
+            FormattingResultLog resultLog) {
 
         return loadConfigurationsInner(siteName, new SimpleRunmodeConfigurationsFilter(servicePids), resultLog);
     }
@@ -62,19 +63,14 @@ public class RunmodesConfigurationLoader implements ConfigurationLoader {
     private String getCurrentRunmodeName() {
         Set<String> runmodes = slingSettingsService.getRunModes();
 
-        if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("Runmodes from SlingSettingsService: '{}'", runmodes);
-        }
+        LOGGER.debug("Runmodes from SlingSettingsService: '{}'", runmodes);
 
         Set<String> resultSet = new LinkedHashSet<>();
         resultSet.add("config");
 
-        Set<String> filteredSet = new HashSet<>();
-        for (String runmode : runmodes) {
-            if (null != runmode && !runmode.contains("samplecontent") && !runmode.contains("crx")) {
-                filteredSet.add(runmode);
-            }
-        }
+        Set<String> filteredSet = runmodes.stream()
+                .filter(runmode -> null != runmode && !runmode.contains("samplecontent") && !runmode.contains("crx"))
+                .collect(Collectors.toSet());
 
         moveRunmodeIfPresent("author", filteredSet, resultSet);
         moveRunmodeIfPresent("publish", filteredSet, resultSet);
@@ -85,8 +81,7 @@ public class RunmodesConfigurationLoader implements ConfigurationLoader {
     }
 
     private Multimap<String, SiteConfiguration> loadConfigurationsInner(String siteName,
-                                                                        RunmodeConfigurationsFilter filter,
-                                                                        FormattingResultLog resultLog) {
+            RunmodeConfigurationsFilter filter, FormattingResultLog resultLog) {
 
         Multimap<String, SiteConfiguration> configurationsMap = ArrayListMultimap.create();
 
@@ -99,18 +94,15 @@ public class RunmodesConfigurationLoader implements ConfigurationLoader {
 
         } else {
             resultLog.info("Determined current runmode as '{}'", currentRunmode);
-            if (LOGGER.isDebugEnabled()) {
-                LOGGER.debug("Determined current runmode as '{}'", currentRunmode);
-            }
+            LOGGER.debug("Determined current runmode as '{}'", currentRunmode);
+
         }
 
-        Session session = null;
-        try {
-            session = slingRepository.loginAdministrative(null);
-            QueryManager queryManager = session.getWorkspace().getQueryManager();
+        try (SessionHolder holder = new SessionHolder(slingRepository)) {
+            QueryManager queryManager = holder.getSession().getWorkspace().getQueryManager();
 
-            RunmodesConfigurationLoaderHelper configurationLoaderHelper =
-                    new RunmodesConfigurationLoaderHelper(siteName, queryManager, resultLog);
+            RunmodesConfigurationLoaderHelper configurationLoaderHelper = new RunmodesConfigurationLoaderHelper(
+                    siteName, queryManager, resultLog);
 
             Iterator<String> runmodeNameIterator = new RunmodeNamesHierarchicalIterator(currentRunmode);
             while (runmodeNameIterator.hasNext()) {
@@ -125,10 +117,6 @@ public class RunmodesConfigurationLoader implements ConfigurationLoader {
         } catch (RepositoryException ex) {
             LOGGER.error("Failed to get runmodes configurations", ex);
 
-        } finally {
-            if (null != session && session.isLive()) {
-                session.logout();
-            }
         }
 
         return configurationsMap;
@@ -161,7 +149,7 @@ public class RunmodesConfigurationLoader implements ConfigurationLoader {
 
         private final Collection<String> servicePids;
 
-        public SimpleRunmodeConfigurationsFilter(Collection<String> servicePids) {
+        SimpleRunmodeConfigurationsFilter(Collection<String> servicePids) {
             this.servicePids = servicePids;
         }
 

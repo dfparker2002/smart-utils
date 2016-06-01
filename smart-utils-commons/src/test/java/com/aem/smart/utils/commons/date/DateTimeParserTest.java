@@ -1,6 +1,6 @@
 package com.aem.smart.utils.commons.date;
 
-import com.google.common.base.Optional;
+import java.util.Optional;
 import org.junit.Test;
 
 import java.text.ParseException;
@@ -15,7 +15,8 @@ public class DateTimeParserTest {
         String value = "2011-02-14T10:10:00.000+02:00";
         final Optional<Calendar> parse = SmartDateTimeParser.parse(value);
 
-        final Calendar calendar = parse.get();
+        final Calendar calendar = parse.orElseThrow(() -> new IllegalArgumentException(
+                "Expect that date was parsed"));
 
         assertEquals("Expect 2011", 2011, calendar.get(Calendar.YEAR));
         assertEquals("Expect 1", 1, calendar.get(Calendar.MONTH));
@@ -29,7 +30,8 @@ public class DateTimeParserTest {
         String value = "2001-10-01T01:22:22.000";
         final Optional<Calendar> parse = SmartDateTimeParser.parse(value);
 
-        final Calendar calendar = parse.get();
+        final Calendar calendar = parse.orElseThrow(() -> new IllegalArgumentException(
+                "Expect that date was parsed"));
 
         assertEquals("Expect 2001", 2001, calendar.get(Calendar.YEAR));
         assertEquals("Expect 9", 9, calendar.get(Calendar.MONTH));
@@ -43,7 +45,8 @@ public class DateTimeParserTest {
         String value = "2016-08-14T08:08:00";
         final Optional<Calendar> parse = SmartDateTimeParser.parse(value);
 
-        final Calendar calendar = parse.get();
+        final Calendar calendar = parse.orElseThrow(() -> new IllegalArgumentException(
+                "Expect that date was parsed"));
 
         assertEquals("Expect 2016", 2016, calendar.get(Calendar.YEAR));
         assertEquals("Expect 7", 7, calendar.get(Calendar.MONTH));
@@ -57,7 +60,8 @@ public class DateTimeParserTest {
         String value = "2099-09-20 01:07:00";
         final Optional<Calendar> parse = SmartDateTimeParser.parse(value);
 
-        final Calendar calendar = parse.get();
+        final Calendar calendar = parse.orElseThrow(() -> new IllegalArgumentException(
+                "Expect that date was parsed"));
 
         assertEquals("Expect 2099", 2099, calendar.get(Calendar.YEAR));
         assertEquals("Expect 8", 8, calendar.get(Calendar.MONTH));
@@ -71,7 +75,8 @@ public class DateTimeParserTest {
         String value = "2098-12-25";
         final Optional<Calendar> parse = SmartDateTimeParser.parse(value);
 
-        final Calendar calendar = parse.get();
+        final Calendar calendar = parse.orElseThrow(() -> new IllegalArgumentException(
+                "Expect that date was parsed"));
 
         assertEquals("Expect 2098", 2098, calendar.get(Calendar.YEAR));
         assertEquals("Expect 11", 11, calendar.get(Calendar.MONTH));

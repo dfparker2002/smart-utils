@@ -11,8 +11,7 @@ import org.joda.time.format.DateTimeFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.base.Optional;
-import com.google.common.base.Throwables;
+import java.util.Optional;
 import com.google.common.collect.ImmutableSet;
 
 /**
@@ -48,7 +47,7 @@ public final class SmartDateTimeParser {
         } catch (ParseException e) {
             LOG.error("Error while parsing '{}' with pattern '{}'", new Object[] { value, pattern, e, });
         }
-        return Optional.fromNullable(date);
+        return Optional.ofNullable(date);
     }
 
     /**
@@ -92,7 +91,7 @@ public final class SmartDateTimeParser {
                 LOG.error("Fail to parse date time at all: '{}' for any supported pattern", value);
             }
         }
-        return Optional.fromNullable(result);
+        return Optional.ofNullable(result);
     }
 
     private SmartDateTimeParser() {

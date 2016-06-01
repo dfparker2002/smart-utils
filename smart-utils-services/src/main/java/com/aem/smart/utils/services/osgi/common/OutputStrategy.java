@@ -6,12 +6,22 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Author: Andrii_Manuiev
+ * The interface Output strategy.
  */
 public interface OutputStrategy {
 
-    static final String CONTENT_TYPE_PLAIN = "text/plain";
-    static final String CONTENT_TYPE_ZIP = "application/zip";
+    /**
+     * The constant CONTENT_TYPE_PLAIN.
+     */
+    String CONTENT_TYPE_PLAIN = "text/plain";
 
-    public void execute(SlingHttpServletResponse response, File logFile, LogFilter filter) throws IOException;
+    /**
+     * Execute.
+     *
+     * @param response the response
+     * @param logFile  the log file
+     * @param filter   the filter
+     * @throws IOException the io exception
+     */
+    void execute(SlingHttpServletResponse response, File logFile, LogFilter filter) throws IOException;
 }

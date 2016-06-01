@@ -1,5 +1,18 @@
 package com.aem.smart.utils.services.osgi.components;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Collections;
+
+import javax.jcr.Node;
+import javax.jcr.NodeIterator;
+import javax.jcr.RepositoryException;
+import javax.jcr.Session;
+import javax.jcr.query.Query;
+import javax.jcr.query.QueryManager;
+import javax.jcr.query.QueryResult;
+import javax.servlet.ServletException;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.sling.SlingServlet;
@@ -11,27 +24,17 @@ import org.apache.sling.jcr.api.SlingRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.jcr.Node;
-import javax.jcr.NodeIterator;
-import javax.jcr.RepositoryException;
-import javax.jcr.Session;
-import javax.jcr.query.Query;
-import javax.jcr.query.QueryManager;
-import javax.jcr.query.QueryResult;
-import javax.servlet.ServletException;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Collections;
+import com.aem.smart.utils.commons.jcr.SessionHolder;
 
 /**
- * Author: Andrii_Manuiev
+ * The type Repository query reporter.
  */
-@SlingServlet(metatype = false, paths = RepositoryQueryReporter.MAPPING_PATH)
+@SlingServlet(paths = RepositoryQueryReporter.MAPPING_PATH)
 public class RepositoryQueryReporter extends SlingAllMethodsServlet {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RepositoryQueryReporter.class);
 
-    public static final String MAPPING_PATH = "/services/smart-utils/repository-query-reporter";
+    static final String MAPPING_PATH = "/services/smart-utils/repository-query-reporter";
 
     private static final String CONTENT_TYPE = "application/json";
     private static final String PAGE_ENCODING = "UTF-8";
@@ -40,45 +43,41 @@ public class RepositoryQueryReporter extends SlingAllMethodsServlet {
     private static final String QUERY_TYPE_PARAM = "queryType";
 
     @Reference
-    SlingRepository repository;
+    private SlingRepository repository;
 
     @Override
-    protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response)
+            throws ServletException, IOException {
+
         response.setContentType(CONTENT_TYPE);
         response.setCharacterEncoding(PAGE_ENCODING);
 
         String queryText = request.getParameter(QUERY_PARAM);
         String queryType = request.getParameter(QUERY_TYPE_PARAM);
 
-        Session adminSession = null;
-        try {
-            adminSession = repository.loginAdministrative(null);
+        try (SessionHolder holder = new SessionHolder(repository)) {
 
             LOGGER.info("the query is {} ", queryText);
             LOGGER.info("the query type is {} ", queryType);
 
-            NodeIterator result = executeQuery(adminSession, queryText, queryType);
+            NodeIterator result = executeQuery(holder.getSession(), queryText, queryType);
 
             PrintWriter responseWriter = response.getWriter();
 
             LOGGER.info("the result is {} ", result.getSize());
 
             while (result.hasNext()) {
-                Node next =  result.nextNode();
+                Node next = result.nextNode();
                 responseWriter.println(next.getPath());
             }
-
         } catch (RepositoryException e) {
             LOGGER.error(e.getMessage(), e);
-        } finally {
-            if (adminSession != null) {
-                adminSession.logout();
-            }
         }
     }
 
     @Override
-    protected void doPost(SlingHttpServletRequest request, SlingHttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(SlingHttpServletRequest request, SlingHttpServletResponse response)
+            throws ServletException, IOException {
         doGet(request, response);
     }
 
@@ -99,9 +98,7 @@ public class RepositoryQueryReporter extends SlingAllMethodsServlet {
 
     @SuppressWarnings("deprecation")
     private boolean isWrongType(String queryType) {
-        return !Query.XPATH.equals(queryType)
-                && !Query.SQL.equals(queryType)
-                && !Query.JCR_SQL2.equals(queryType)
+        return !Query.XPATH.equals(queryType) && !Query.SQL.equals(queryType) && !Query.JCR_SQL2.equals(queryType)
                 && !Query.JCR_JQOM.equals(queryType);
     }
 }

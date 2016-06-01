@@ -6,10 +6,7 @@ import org.slf4j.Logger;
 import java.io.*;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Andrii_Manuiev
- * Date: 20.05.13
- * Time: 17:03
+ * The type Tail thread.
  * The thread that tail a log file.
  */
 public class TailThread implements Runnable {
@@ -17,10 +14,20 @@ public class TailThread implements Runnable {
     private BufferedReader bufferedReader;
     private PrintWriter writer;
     private LogFilter filter;
-    boolean execute = true;
+
+    private boolean execute = true;
 
     private Logger logger;
 
+    /**
+     * Instantiates a new Tail thread.
+     *
+     * @param file   the file
+     * @param writer the writer
+     * @param logger the logger
+     * @param filter the filter
+     * @throws FileNotFoundException the file not found exception
+     */
     public TailThread(File file, PrintWriter writer, Logger logger, LogFilter filter) throws FileNotFoundException {
         bufferedReader = new BufferedReader(new FileReader(file));
         this.writer = writer;

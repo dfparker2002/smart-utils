@@ -1,23 +1,18 @@
 package com.aem.smart.utils.hc;
 
-import com.aem.smart.utils.hc.api.HybrisRestConnectionConfig;
+import java.util.Map;
+import java.util.Objects;
+
 import org.apache.felix.scr.annotations.Property;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.sling.commons.osgi.PropertiesUtil;
 import org.apache.sling.hc.annotations.SlingHealthCheck;
 
-import java.util.Map;
-import java.util.Objects;
+import com.aem.smart.utils.hc.api.HybrisRestConnectionConfig;
 
-@SlingHealthCheck(
-        name = "FGL Hybris Connection Health Check",
-        label = "FGL Hybris Connection Health Check",
-        description = "Checks connectivity to hybris",
-        tags = { "connectivity", "hybris" }
-)
+@SlingHealthCheck(name = "Hybris Connection Health Check", label = "Hybris Connection Health Check", description = "Checks connectivity to hybris", tags = {
+        "connectivity", "hybris" })
 public class HybrisConnectionHealthCheck extends AbstractConnectivityHealthCheck {
-
-    private static final String DEFAULT_HYBRIS_ENDPOINT_TO_CHECK = "/rest/v1/atmosphere/cart/mini";
 
     @Property(label = "Hybris endpoint to check connectivity to")
     private static final String HYBRIS_ENDPOINT_TO_CHECK = "hc.connection.hybris.url";
@@ -33,9 +28,10 @@ public class HybrisConnectionHealthCheck extends AbstractConnectivityHealthCheck
 
         Objects.requireNonNull(hybrisRestConnectionConfig, "No reference to HybrisRestConnectionConfig");
 
-        this.hybrisEndpointToChek = PropertiesUtil.toString(
-                properties.get(HYBRIS_ENDPOINT_TO_CHECK),
-                DEFAULT_HYBRIS_ENDPOINT_TO_CHECK);
+        final String endPoint = PropertiesUtil.toString(properties.get(HYBRIS_ENDPOINT_TO_CHECK), null);
+        Objects.requireNonNull(endPoint, "Fail to check empty endpoint");
+
+        this.hybrisEndpointToChek = endPoint;
     }
 
     @Override

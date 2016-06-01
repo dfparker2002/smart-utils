@@ -9,13 +9,18 @@ import java.nio.charset.Charset;
 import java.util.zip.DeflaterOutputStream;
 
 /**
- * Author: Andrii_Manuiev
+ * The type Log filter.
  */
 public class LogFilterImpl implements LogFilter {
 
-    public static final String NEW_LINE = "\n";
-    private String filterExpression;
+    private static final String NEW_LINE = "\n";
+    private final String filterExpression;
 
+    /**
+     * Instantiates a new Log filter.
+     *
+     * @param requestedFilter the requested filter
+     */
     public LogFilterImpl(String requestedFilter) {
         filterExpression = requestedFilter;
     }

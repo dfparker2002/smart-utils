@@ -284,7 +284,7 @@ public class HealthCheckExecutorServlet extends HttpServlet {
     }
 
     Map<Status, Integer> getStatusMapping(String mappingStr) throws ServletException {
-        Map<Status, Integer> statusMapping = new HashMap<Status, Integer>();
+        Map<Status, Integer> statusMapping = new HashMap<>();
         try {
             String[] bits = mappingStr.split("[,]");
             for (String bit : bits) {

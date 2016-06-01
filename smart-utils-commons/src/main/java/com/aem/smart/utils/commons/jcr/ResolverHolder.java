@@ -8,12 +8,16 @@ import org.apache.sling.api.resource.ResourceResolverFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashMap;
+
 /**
  * The type Resolver holder.
  */
 public class ResolverHolder implements AutoCloseable {
 
     private static final Logger LOG = LoggerFactory.getLogger(ResolverHolder.class);
+
+    private static final String DEFAULT_USER = "admin";
 
     private ResourceResolver resolver;
 
@@ -24,8 +28,10 @@ public class ResolverHolder implements AutoCloseable {
      */
     public ResolverHolder(final ResourceResolverFactory factory) {
         try {
-            this.resolver = factory.getAdministrativeResourceResolver(null);
-
+            HashMap<String, Object> authenticationInfo = new HashMap<>();
+            authenticationInfo.put(ResourceResolverFactory.USER, DEFAULT_USER);
+            authenticationInfo.put(ResourceResolverFactory.PASSWORD, DEFAULT_USER);
+            this.resolver = factory.getResourceResolver(authenticationInfo);
         } catch (LoginException ex) {
             LOG.error("Fail on getting resource resolver", ex);
         }

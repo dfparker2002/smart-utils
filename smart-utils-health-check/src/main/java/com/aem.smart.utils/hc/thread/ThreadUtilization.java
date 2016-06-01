@@ -5,8 +5,8 @@ package com.aem.smart.utils.hc.thread;
  */
 class ThreadUtilization implements Comparable<ThreadUtilization> {
 
-    Thread thread;
-    double utilization;
+    final Thread thread;
+    final double utilization;
 
     public ThreadUtilization(Thread thread, double utilization) {
         this.thread = thread;

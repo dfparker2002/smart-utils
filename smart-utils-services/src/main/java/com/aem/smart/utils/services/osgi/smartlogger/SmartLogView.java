@@ -44,9 +44,10 @@ public class SmartLogView extends SimpleWebConsolePlugin {
     public static Dictionary getParams() {
         final Dictionary<String, Object> props = new Hashtable();
         props.put(Constants.SERVICE_DESCRIPTION, "Smart Utils Plugin for Apache Felix Console.");
-        props.put(Constants.SERVICE_VENDOR, "EPAM Systems");
+        props.put(Constants.SERVICE_VENDOR, "Andrii Manuiev");
         props.put(WebConsoleConstants.PLUGIN_LABEL, LABEL);
         props.put(WebConsoleConstants.PLUGIN_TITLE, TITLE);
+        props.put(WebConsoleConstants.PLUGIN_CATEGORY, "Utils");
         props.put(WebConsoleConstants.PLUGIN_CSS_REFERENCES,
                 "/" + LABEL + "/templates/smart-utils/css/smart-logger.css");
         return props;

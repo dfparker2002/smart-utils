@@ -43,7 +43,9 @@ public class SmartLog extends SlingAllMethodsServlet {
         response.setContentType(CONTENT_TYPE);
         response.setCharacterEncoding(PAGE_ENCODING);
 
-        List<String> fileList = getFileList();
+        boolean hideOld = Boolean.valueOf(request.getParameter("hideOld"));
+
+        List<String> fileList = getFileList(hideOld);
 
         TidyJSONWriter jsonWriter = new TidyJSONWriter(response.getWriter());
 
@@ -60,13 +62,14 @@ public class SmartLog extends SlingAllMethodsServlet {
         }
     }
 
-    private List<String> getFileList() {
+    private List<String> getFileList(boolean hideOld) {
 
         List<String> result = new LinkedList<>();
 
         String path = slingSettings.getAbsolutePathWithinSlingHome("logs");
         File logsFolder = new File(path);
-        final Collection<File> listOfLogs = FileUtils.listFiles(logsFolder, new String[] { "log" }, true);
+        final Collection<File> listOfLogs = FileUtils.listFiles(logsFolder,
+                (hideOld ? new String[] { "log" } : null), true);
 
         result.addAll(
                 listOfLogs.stream()

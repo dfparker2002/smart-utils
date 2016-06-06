@@ -31,7 +31,7 @@ public class ReplicationQueueHealthCheck extends AbstractRunmodeAwareHealthCheck
     private static final String NUMBER_OF_RETRIES_ALLOWED = "numberOfRetriesAllowed";
 
     @Reference(policy = ReferencePolicy.DYNAMIC)
-    private AgentManager agentManager;
+    private volatile AgentManager agentManager;
 
     private int numberOfRetriesAllowed;
 
